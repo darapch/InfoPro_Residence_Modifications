@@ -1,0 +1,1250 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE Report
+[
+<!ELEMENT Report (General ,(Doc|BPT)) >
+<!ATTLIST Report ver CDATA #REQUIRED tmZone CDATA #REQUIRED>
+
+<!ELEMENT General ( DocLocation ) >
+<!ATTLIST General productName CDATA #REQUIRED productVer CDATA #REQUIRED os CDATA #REQUIRED host CDATA #REQUIRED qcserver CDATA #IMPLIED qcproject CDATA #IMPLIED SolManSolutionId CDATA #IMPLIED SolManProjectId CDATA #IMPLIED SolManTestPlanId CDATA #IMPLIED SolManTestPackageId CDATA #IMPLIED SolManUserInfoData CDATA #IMPLIED  >
+
+<!ELEMENT BPT (DName,Res,DVer?,TSet?,TInst?,NodeArgs,AdditionalInfo*,Doc*) >
+<!ATTLIST BPT rID ID #REQUIRED >
+
+<!ELEMENT Doc (DName,ConfName?,Res,DVer?,TSet?,TInst?,RunType?,DT?,AdditionalInfo*,Step*,DIter*,Step*,Action*,Doc*,Summary?,TestMaintenanceSummary*,NodeArgs?) >
+<!ATTLIST Doc rID ID #REQUIRED type (Test|BC|BPTWrapperTest|Flow|Group|Action) "Test" productName CDATA #REQUIRED BCIter CDATA #IMPLIED >
+
+<!ELEMENT RunType ( #PCDATA )>
+<!ATTLIST RunType fmStep (False|True) "False" batch (False|True) "False" upDesc (False|True) "False" upChk (False|True) "False" upAS (False|True) "False">
+
+<!ELEMENT DName ( #PCDATA ) >
+
+<!ELEMENT ConfName ( #PCDATA ) >
+
+<!ELEMENT Res ( #PCDATA ) >
+
+<!ELEMENT AdditionalInfo (AdditionalDataName,AdditionalDataValue ) >
+
+<!ELEMENT AdditionalDataName ( #PCDATA ) >
+
+<!ELEMENT AdditionalDataValue ( #PCDATA ) >
+
+<!ELEMENT DVer ( #PCDATA ) >
+
+<!ELEMENT TSet ( #PCDATA ) >
+
+<!ELEMENT TInst ( #PCDATA ) >
+
+<!ELEMENT DIter (Step*,Action+,Summary?,NodeArgs)>
+<!ATTLIST DIter rID ID #REQUIRED iterID CDATA #REQUIRED>
+
+<!ELEMENT DocLocation ( #PCDATA )>
+
+<!ELEMENT Action (AName,AIter*,(Step|HtmlStep|Action)*, Summary,ActionMaintenanceSummary*, NodeArgs ) >
+<!ATTLIST Action rID ID #REQUIRED>
+
+<!ELEMENT AIter ((Step|HtmlStep|Action)*,DataMapping?, Summary?,NodeArgs) >
+<!ATTLIST AIter rID ID #REQUIRED iterID CDATA #REQUIRED isCountable (False|True) "False" >
+
+<!ELEMENT AName ( #PCDATA ) >
+
+<!ELEMENT TestMaintenanceSummary (ActionMaintenanceSummary*) >
+<!ATTLIST TestMaintenanceSummary ObjectsAdded CDATA #REQUIRED ObjectsUpdated CDATA #REQUIRED StepsUpdated CDATA #REQUIRED StepsComments CDATA #REQUIRED><!ELEMENT ActionMaintenanceSummary (ObjectChange* ) >
+<!ATTLIST ActionMaintenanceSummary Action CDATA #REQUIRED Objects CDATA #REQUIRED Updated CDATA #REQUIRED LinesTotal CDATA #REQUIRED Added CDATA #REQUIRED LinesUpdated CDATA #REQUIRED>
+
+<!ELEMENT ObjectChange  (Hierarchy, PropertyChangeList* ) >
+<!ATTLIST ObjectChange Operation CDATA #IMPLIED OriginalRepository CDATA #IMPLIED>
+
+<!ELEMENT PropertyChangeList (PropertyDef*) >
+
+<!ELEMENT PropertyDef (OriginalValue, NewValue) >
+<!ATTLIST PropertyDef PropName CDATA #REQUIRED OriginRegularExpression (True|False) "False" NewRegularExpression (True|False) "False" AddedProperty (True|False) "False" >
+
+<!ELEMENT OriginalValue ( #PCDATA )>
+
+<!ELEMENT NewValue ( #PCDATA )>
+
+<!ELEMENT Hierarchy  (ObjectName, Hierarchy*) >
+<!ATTLIST Hierarchy MicClass CDATA #REQUIRED>
+
+<!ELEMENT ObjectName  ( #PCDATA ) >
+
+<!ELEMENT Step (Obj,Details,Time,TimeTick* ,(Step|HtmlStep|Doc)*, DataMapping?, NodeArgs) >
+<!ATTLIST Step rID ID #REQUIRED retval CDATA #IMPLIED>
+
+<!ELEMENT HtmlStep (HTML,TimeTick*,(Step|HtmlStep|Doc)*,NodeArgs) >
+<!ATTLIST HtmlStep rID ID #REQUIRED >
+
+<!ELEMENT Obj ( #PCDATA ) >
+<!ATTLIST Obj plainTxt (False|True) "True">
+
+<!ELEMENT Details ( #PCDATA ) >
+<!ATTLIST Details plainTxt (False|True) "True">
+
+<!ELEMENT Time ( #PCDATA ) >
+
+<!ELEMENT HTML ( #PCDATA ) >
+
+<!ELEMENT Disp ( #PCDATA ) >
+
+<!ELEMENT TimeTick ( #PCDATA ) >
+
+<!ELEMENT DataMapping ( DataMappedItem* )>
+<!ELEMENT DataMappedItem EMPTY >
+<!ATTLIST DataMappedItem dsName CDATA #REQUIRED >
+<!ATTLIST DataMappedItem rowId CDATA #REQUIRED >
+
+<!ELEMENT NodeArgs (Disp,TopPane?,BtmPane?,ExtendedInfo? )>
+<!ATTLIST NodeArgs eType CDATA #REQUIRED icon CDATA #REQUIRED nRep CDATA #REQUIRED UserNote CDATA #IMPLIED filter (False|True) "True">
+<!ATTLIST NodeArgs status (Passed|Failed|Done|Warning|Information) "Done">
+<!ATTLIST NodeArgs iconSel CDATA #IMPLIED nType CDATA #IMPLIED MovieMarker CDATA "">
+<!ATTLIST NodeArgs Source CDATA #IMPLIED SourceLine CDATA #IMPLIED StepFlowItemKey CDATA #IMPLIED >
+
+<!ELEMENT TopPane (Path)>
+
+<!ELEMENT BtmPane ( (Path|WR)?,ASHilite?)>
+<!ATTLIST BtmPane vType CDATA "HTML">
+
+<!ELEMENT Path ( #PCDATA ) >
+
+<!ELEMENT ASHilite ( #PCDATA ) >
+
+<!ELEMENT WR ( #PCDATA ) >
+
+<!ELEMENT ExtendedInfo ( StepData ) >
+
+<!ATTLIST ExtendedInfo StepType CDATA #REQUIRED>
+<!ELEMENT DT (NodeArgs) >
+<!ATTLIST DT rID ID #REQUIRED>
+
+<!ELEMENT Summary (Param*)>
+<!ATTLIST Summary sTime CDATA #IMPLIED eTime CDATA #IMPLIED passed CDATA #IMPLIED failed CDATA #IMPLIED warnings CDATA #IMPLIED retval CDATA #IMPLIED stopped (False|True) "False" >
+
+<!ELEMENT Param (ParamName,ParamVal)+ >
+<!ATTLIST Param paramInOut (In|Out) "In">
+
+<!ELEMENT ParamName ( #PCDATA ) >
+
+<!ELEMENT ParamVal ( #PCDATA ) >
+
+]
+>
+<Report ver="2.0" tmZone="India Standard Time">
+<General productName="HP Unified Functional Testing" productVer="12.53" os="Windows 7" host="PBNHMRY"><DocLocation><![CDATA[C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\TestScript\Driver_Repaired]]></DocLocation></General>
+<Doc rID="T1"   productName= "HP Unified Functional Testing"  >
+<DName><![CDATA[Driver_Repaired]]></DName>
+<Res><![CDATA[Res1]]></Res>
+<DT rID="T2">
+<NodeArgs eType="Table" icon="2" nRep="4" filter="False" >
+<Disp><![CDATA[Run-Time Data Table]]></Disp>
+<BtmPane vType="Table" >
+<Path><![CDATA[Default.xls]]></Path>
+</BtmPane>
+</NodeArgs>
+</DT>
+<Action rID="T3">
+<AName><![CDATA[Action1]]></AName>
+<Step rID="T4">
+<Obj plainTxt="False" ><![CDATA[LoadFunctionLibrary]]></Obj>
+<Details plainTxt="False" ><![CDATA[LoadFunctionLibrary function passed]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:05]]></Time>
+<TimeTick>1488374945</TimeTick>
+<NodeArgs eType="Replay" icon="4" nRep="7" status="Passed" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[LoadFunctionLibrary]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T5">
+<Obj plainTxt="False" ><![CDATA[LoadFunctionLibrary]]></Obj>
+<Details plainTxt="False" ><![CDATA[LoadFunctionLibrary function passed]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:05]]></Time>
+<TimeTick>1488374945</TimeTick>
+<NodeArgs eType="Replay" icon="4" nRep="8" status="Passed" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[LoadFunctionLibrary]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T6">
+<Obj plainTxt="False" ><![CDATA[LoadFunctionLibrary]]></Obj>
+<Details plainTxt="False" ><![CDATA[LoadFunctionLibrary function passed]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:05]]></Time>
+<TimeTick>1488374945</TimeTick>
+<NodeArgs eType="Replay" icon="4" nRep="9" status="Passed" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[LoadFunctionLibrary]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T7">
+<Obj ><![CDATA[START RUN]]></Obj>
+<Details ><![CDATA[3/1/2017 6:59:06 PM]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:06]]></Time>
+<TimeTick>1488374946</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="10" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[START RUN]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T8">
+<Obj ><![CDATA[Excel file loaded sucessfully]]></Obj>
+<Details ><![CDATA[]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:06]]></Time>
+<TimeTick>1488374946</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="11" status="Passed" >
+<Disp><![CDATA[Excel file loaded sucessfully]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T9">
+<Obj ><![CDATA[Infopro Application opened successfully]]></Obj>
+<Details ><![CDATA[]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:16]]></Time>
+<TimeTick>1488374956</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="12" status="Passed" >
+<Disp><![CDATA[Infopro Application opened successfully]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T10">
+<Obj plainTxt="False" ><![CDATA[Configure PC5250]]></Obj>
+<Details plainTxt="False" ><![CDATA[Dialog]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:23]]></Time>
+<TimeTick>1488374963</TimeTick>
+<Step rID="T11">
+<Obj plainTxt="False" ><![CDATA[Configure PC5250.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:23]]></Time>
+<TimeTick>1488374963</TimeTick>
+<NodeArgs eType="Replay" icon="6" nRep="14" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[Configure PC5250.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T12">
+<Obj plainTxt="False" ><![CDATA[Configure PC5250.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:23]]></Time>
+<TimeTick>1488374963</TimeTick>
+<NodeArgs eType="Replay" icon="6" nRep="15" >
+<Disp><![CDATA[Configure PC5250.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T13">
+<Obj plainTxt="False" ><![CDATA[SystemName.SetText]]></Obj>
+<Details plainTxt="False" ><![CDATA["SYS01"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:23]]></Time>
+<TimeTick>1488374963</TimeTick>
+<NodeArgs eType="Replay" icon="7" nRep="17" >
+<Disp><![CDATA[SystemName.SetText]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="6" nRep="13" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[Configure PC5250]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T14">
+<Obj plainTxt="False" ><![CDATA[System i signon]]></Obj>
+<Details plainTxt="False" ><![CDATA[Dialog]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:23]]></Time>
+<TimeTick>1488374963</TimeTick>
+<Step rID="T15">
+<Obj plainTxt="False" ><![CDATA[System i signon.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:23]]></Time>
+<TimeTick>1488374963</TimeTick>
+<NodeArgs eType="Replay" icon="6" nRep="19" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[System i signon.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T16">
+<Obj plainTxt="False" ><![CDATA[System i signon.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:23]]></Time>
+<TimeTick>1488374963</TimeTick>
+<NodeArgs eType="Replay" icon="6" nRep="20" >
+<Disp><![CDATA[System i signon.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="6" nRep="18" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[System i signon]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T17">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:27]]></Time>
+<TimeTick>1488374967</TimeTick>
+<Step rID="T18">
+<Obj plainTxt="False" ><![CDATA[Login]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:27]]></Time>
+<TimeTick>1488374967</TimeTick>
+<Step rID="T19">
+<Obj plainTxt="False" ><![CDATA[UserId.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:27]]></Time>
+<TimeTick>1488374967</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="25" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[UserId.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T20">
+<Obj plainTxt="False" ><![CDATA[[  [24 x 80] ].Maximize]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:27]]></Time>
+<TimeTick>1488374967</TimeTick>
+<NodeArgs eType="Replay" icon="11" nRep="27" >
+<Disp><![CDATA[[  [24 x 80] ].Maximize]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T21">
+<Obj plainTxt="False" ><![CDATA[UserId.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:27]]></Time>
+<TimeTick>1488374967</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="28" >
+<Disp><![CDATA[UserId.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T22">
+<Obj plainTxt="False" ><![CDATA[Password.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:27]]></Time>
+<TimeTick>1488374967</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="29" >
+<Disp><![CDATA[Password.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T23">
+<Obj plainTxt="False" ><![CDATA[UserId.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["darapch"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:27]]></Time>
+<TimeTick>1488374967</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="31" >
+<Disp><![CDATA[UserId.Set]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="24" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[Login]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="23" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T24">
+<Obj ><![CDATA[Enter UserId in the Login Screen]]></Obj>
+<Details ><![CDATA[The value 'darapch' entered into the field UserId]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:29]]></Time>
+<TimeTick>1488374969</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="32" status="Passed" >
+<Disp><![CDATA[Enter UserId in the Login Screen]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T25">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:29]]></Time>
+<TimeTick>1488374969</TimeTick>
+<Step rID="T26">
+<Obj plainTxt="False" ><![CDATA[Login]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:29]]></Time>
+<TimeTick>1488374969</TimeTick>
+<Step rID="T27">
+<Obj plainTxt="False" ><![CDATA[Password.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["Sachin8187"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:29]]></Time>
+<TimeTick>1488374969</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="36" >
+<Disp><![CDATA[Password.Set]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="35" >
+<Disp><![CDATA[Login]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T28">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:31]]></Time>
+<TimeTick>1488374971</TimeTick>
+<Step rID="T29">
+<Obj plainTxt="False" ><![CDATA[[ screen10365 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_ENTER"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:31]]></Time>
+<TimeTick>1488374971</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="39" >
+<Disp><![CDATA[[ screen10365 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T30">
+<Obj plainTxt="False" ><![CDATA[[ TeScreen ].Sync]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:31]]></Time>
+<TimeTick>1488374971</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="40" >
+<Disp><![CDATA[[ TeScreen ].Sync]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="38" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T31">
+<Obj plainTxt="False" ><![CDATA[Menu]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:33]]></Time>
+<TimeTick>1488374973</TimeTick>
+<Step rID="T32">
+<Obj plainTxt="False" ><![CDATA[InfoPro.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["1"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:33]]></Time>
+<TimeTick>1488374973</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="44" >
+<Disp><![CDATA[InfoPro.Set]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="43" >
+<Disp><![CDATA[Menu]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="34" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T33">
+<Obj ><![CDATA[Enter InfoPro in the Menu Screen]]></Obj>
+<Details ><![CDATA[The value '1' entered into the field InfoPro]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:33]]></Time>
+<TimeTick>1488374973</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="45" status="Passed" >
+<Disp><![CDATA[Enter InfoPro in the Menu Screen]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T34">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:33]]></Time>
+<TimeTick>1488374973</TimeTick>
+<Step rID="T35">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:33]]></Time>
+<TimeTick>1488374973</TimeTick>
+<Step rID="T36">
+<Obj plainTxt="False" ><![CDATA[[ Systems Utilities Archiv ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_ENTER"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:33]]></Time>
+<TimeTick>1488374973</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="49" >
+<Disp><![CDATA[[ Systems Utilities Archiv ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T37">
+<Obj plainTxt="False" ><![CDATA[[ TeScreen ].Sync]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:33]]></Time>
+<TimeTick>1488374973</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="50" >
+<Disp><![CDATA[[ TeScreen ].Sync]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="48" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T38">
+<Obj plainTxt="False" ><![CDATA[Region]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:35]]></Time>
+<TimeTick>1488374975</TimeTick>
+<Step rID="T39">
+<Obj plainTxt="False" ><![CDATA[Region.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:35]]></Time>
+<TimeTick>1488374975</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="53" >
+<Disp><![CDATA[Region.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T40">
+<Obj plainTxt="False" ><![CDATA[Region.SetCursorPos]]></Obj>
+<Details plainTxt="False" ><![CDATA[0]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:35]]></Time>
+<TimeTick>1488374975</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="55" >
+<Disp><![CDATA[Region.SetCursorPos]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="52" >
+<Disp><![CDATA[Region]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T41">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:35]]></Time>
+<TimeTick>1488374975</TimeTick>
+<Step rID="T42">
+<Obj plainTxt="False" ><![CDATA[[ Systems Utilities Archiv ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_BACKTAB"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:35]]></Time>
+<TimeTick>1488374975</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="58" >
+<Disp><![CDATA[[ Systems Utilities Archiv ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T43">
+<Obj plainTxt="False" ><![CDATA[[ Systems Utilities Archiv ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["1"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:35]]></Time>
+<TimeTick>1488374975</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="60" >
+<Disp><![CDATA[[ Systems Utilities Archiv ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T44">
+<Obj plainTxt="False" ><![CDATA[[ Systems Utilities Archiv ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_ENTER"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:37]]></Time>
+<TimeTick>1488374977</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="62" >
+<Disp><![CDATA[[ Systems Utilities Archiv ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="57" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="47" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T45">
+<Obj ><![CDATA[Region Selected sucessfully]]></Obj>
+<Details ><![CDATA[The Selected Region : BIDBFE]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:37]]></Time>
+<TimeTick>1488374977</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="63" status="Passed" >
+<Disp><![CDATA[Region Selected sucessfully]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T46">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:42]]></Time>
+<TimeTick>1488374982</TimeTick>
+<Step rID="T47">
+<Obj plainTxt="False" ><![CDATA[Division]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:42]]></Time>
+<TimeTick>1488374982</TimeTick>
+<Step rID="T48">
+<Obj plainTxt="False" ><![CDATA[Division.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object does not exist"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:42]]></Time>
+<TimeTick>1488374982</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="68" >
+<Disp><![CDATA[Division.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T49">
+<Obj plainTxt="False" ><![CDATA[Nextpage.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:42]]></Time>
+<TimeTick>1488374982</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="69" >
+<Disp><![CDATA[Nextpage.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="67" >
+<Disp><![CDATA[Division]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T50">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:42]]></Time>
+<TimeTick>1488374982</TimeTick>
+<Step rID="T51">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 6:29:38 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_PAGE_DOWN"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:42]]></Time>
+<TimeTick>1488374982</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="72" >
+<Disp><![CDATA[[ 3/01/17 6:29:38 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="71" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T52">
+<Obj plainTxt="False" ><![CDATA[Division]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:43]]></Time>
+<TimeTick>1488374983</TimeTick>
+<Step rID="T53">
+<Obj plainTxt="False" ><![CDATA[Division.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:43]]></Time>
+<TimeTick>1488374983</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="74" >
+<Disp><![CDATA[Division.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T54">
+<Obj plainTxt="False" ><![CDATA[Division.SetCursorPos]]></Obj>
+<Details plainTxt="False" ><![CDATA[0]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:43]]></Time>
+<TimeTick>1488374983</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="76" >
+<Disp><![CDATA[Division.SetCursorPos]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="73" >
+<Disp><![CDATA[Division]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T55">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:43]]></Time>
+<TimeTick>1488374983</TimeTick>
+<Step rID="T56">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 6:29:38 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_BACKTAB"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:43]]></Time>
+<TimeTick>1488374983</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="79" >
+<Disp><![CDATA[[ 3/01/17 6:29:38 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T57">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 6:29:38 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["1"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:43]]></Time>
+<TimeTick>1488374983</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="81" >
+<Disp><![CDATA[[ 3/01/17 6:29:38 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T58">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 6:29:38 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_ENTER"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:45]]></Time>
+<TimeTick>1488374985</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="83" >
+<Disp><![CDATA[[ 3/01/17 6:29:38 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="78" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="66" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T59">
+<Obj ><![CDATA[Division Selected sucessfully]]></Obj>
+<Details ><![CDATA[The Selected Division : 902]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:45]]></Time>
+<TimeTick>1488374985</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="84" status="Passed" >
+<Disp><![CDATA[Division Selected sucessfully]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T60">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<Step rID="T61">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<Step rID="T62">
+<Obj plainTxt="False" ><![CDATA[[ Customer(protected) ].Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="87" >
+<Disp><![CDATA[[ Customer(protected) ].Exist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T63">
+<Obj plainTxt="False" ><![CDATA[[ Customer(protected) ].SetCursorPos]]></Obj>
+<Details plainTxt="False" ><![CDATA[0]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="89" >
+<Disp><![CDATA[[ Customer(protected) ].SetCursorPos]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T64">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 6:29:45 MIS SCO ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_BACKTAB"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="91" >
+<Disp><![CDATA[[ 3/01/17 6:29:45 MIS SCO ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T65">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 6:29:45 MIS SCO ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["1"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="93" >
+<Disp><![CDATA[[ 3/01/17 6:29:45 MIS SCO ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T66">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 6:29:45 MIS SCO ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_ENTER"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="95" >
+<Disp><![CDATA[[ 3/01/17 6:29:45 MIS SCO ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="86" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="85" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T67">
+<Obj ><![CDATA[Select the Primary Option 'Customer Services']]></Obj>
+<Details ><![CDATA[The Primary Option 'Customer Services' has been selected]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="96" status="Passed" >
+<Disp><![CDATA[Select the Primary Option 'Customer Services']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T68">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<Step rID="T69">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<Step rID="T70">
+<Obj plainTxt="False" ><![CDATA[[ Process(protected) ].Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="99" >
+<Disp><![CDATA[[ Process(protected) ].Exist]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T71">
+<Obj plainTxt="False" ><![CDATA[[ Process(protected) ].SetCursorPos]]></Obj>
+<Details plainTxt="False" ><![CDATA[0]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="101" >
+<Disp><![CDATA[[ Process(protected) ].SetCursorPos]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T72">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 6:29:45 MIS SCO ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_BACKTAB"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:46]]></Time>
+<TimeTick>1488374986</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="103" >
+<Disp><![CDATA[[ 3/01/17 6:29:45 MIS SCO ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T73">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 6:29:45 MIS SCO ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["1"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="105" >
+<Disp><![CDATA[[ 3/01/17 6:29:45 MIS SCO ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T74">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 6:29:45 MIS SCO ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_ENTER"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="107" >
+<Disp><![CDATA[[ 3/01/17 6:29:45 MIS SCO ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="98" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="97" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T75">
+<Obj ><![CDATA[Select the Secondary Option 'Process Customer Requests']]></Obj>
+<Details ><![CDATA[The Secondary Option 'Process Customer Requests' has been selected]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="108" status="Passed" >
+<Disp><![CDATA[Select the Secondary Option 'Process Customer Requests']]></Disp>
+</NodeArgs>
+</Step>
+<Action rID="T76">
+<AName><![CDATA[Action1 [BIGDS021_CustomerService]]]></AName>
+<Step rID="T77">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<Step rID="T78">
+<Obj plainTxt="False" ><![CDATA[BIGDS021_CustomerService]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<Step rID="T79">
+<Obj plainTxt="False" ><![CDATA[AccountNumberHeader.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="112" >
+<Disp><![CDATA[AccountNumberHeader.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="111" >
+<Disp><![CDATA[BIGDS021_CustomerService]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="110" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T80">
+<Obj ><![CDATA[Verify the Customer Service Screen]]></Obj>
+<Details ><![CDATA[The Customer Service Screen is displayed]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="113" status="Passed" >
+<Disp><![CDATA[Verify the Customer Service Screen]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T81">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<Step rID="T82">
+<Obj plainTxt="False" ><![CDATA[BIGDS021_CustomerService]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<Step rID="T83">
+<Obj plainTxt="False" ><![CDATA[AccountNumberHeader.Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["9523877"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="117" >
+<Disp><![CDATA[AccountNumberHeader.Set]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="116" >
+<Disp><![CDATA[BIGDS021_CustomerService]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="115" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T84">
+<Obj ><![CDATA[Enter AccountNumberHeader in the BIGDS021_CustomerService Screen]]></Obj>
+<Details ><![CDATA[The value '9523877' entered into the field AccountNumberHeader]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="118" status="Passed" >
+<Disp><![CDATA[Enter AccountNumberHeader in the BIGDS021_CustomerService Screen]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T85">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<Step rID="T86">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<Step rID="T87">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 Company 902 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_ENTER"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="122" >
+<Disp><![CDATA[[ 3/01/17 Company 902 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T88">
+<Obj plainTxt="False" ><![CDATA[[ TeScreen ].Sync]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:47]]></Time>
+<TimeTick>1488374987</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="123" >
+<Disp><![CDATA[[ TeScreen ].Sync]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="121" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T89">
+<Obj plainTxt="False" ><![CDATA[BIGDS021_CustomerService]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:49]]></Time>
+<TimeTick>1488374989</TimeTick>
+<Step rID="T90">
+<Obj plainTxt="False" ><![CDATA[[ 9523877(protected) ].Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:49]]></Time>
+<TimeTick>1488374989</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="126" >
+<Disp><![CDATA[[ 9523877(protected) ].Exist]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="125" >
+<Disp><![CDATA[BIGDS021_CustomerService]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="120" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T91">
+<Obj ><![CDATA[Verify Account]]></Obj>
+<Details ><![CDATA[The Account Number 9523877 is displayed at 'Custmer Service' Screen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:49]]></Time>
+<TimeTick>1488374989</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="127" status="Passed" >
+<Disp><![CDATA[Verify Account]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T92">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:49]]></Time>
+<TimeTick>1488374989</TimeTick>
+<Step rID="T93">
+<Obj plainTxt="False" ><![CDATA[BIGDS021_CustomerService]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:49]]></Time>
+<TimeTick>1488374989</TimeTick>
+<Step rID="T94">
+<Obj plainTxt="False" ><![CDATA[[ 00001 ].Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["1"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:49]]></Time>
+<TimeTick>1488374989</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="131" >
+<Disp><![CDATA[[ 00001 ].Set]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="130" >
+<Disp><![CDATA[BIGDS021_CustomerService]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T95">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:49]]></Time>
+<TimeTick>1488374989</TimeTick>
+<Step rID="T96">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 Company 902 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_ENTER"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:49]]></Time>
+<TimeTick>1488374989</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="134" >
+<Disp><![CDATA[[ 3/01/17 Company 902 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T97">
+<Obj plainTxt="False" ><![CDATA[[ TeScreen ].Sync]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:49]]></Time>
+<TimeTick>1488374989</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="135" >
+<Disp><![CDATA[[ TeScreen ].Sync]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="133" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T98">
+<Obj plainTxt="False" ><![CDATA[BIGDS021_CustomerService]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:50]]></Time>
+<TimeTick>1488374990</TimeTick>
+<Step rID="T99">
+<Obj plainTxt="False" ><![CDATA[[ 9523877(protected) ].SetCursorPos]]></Obj>
+<Details plainTxt="False" ><![CDATA[0]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:50]]></Time>
+<TimeTick>1488374990</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="139" >
+<Disp><![CDATA[[ 9523877(protected) ].SetCursorPos]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T100">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 Company 902 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_TAB"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:50]]></Time>
+<TimeTick>1488374990</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="141" >
+<Disp><![CDATA[[ 3/01/17 Company 902 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T101">
+<Obj plainTxt="False" ><![CDATA[BIGDS021_CustomerService.SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["1"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:51]]></Time>
+<TimeTick>1488374991</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="143" >
+<Disp><![CDATA[BIGDS021_CustomerService.SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="138" >
+<Disp><![CDATA[BIGDS021_CustomerService]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T102">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:51]]></Time>
+<TimeTick>1488374991</TimeTick>
+<Step rID="T103">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 Company 902 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_ENTER"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:51]]></Time>
+<TimeTick>1488374991</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="146" >
+<Disp><![CDATA[[ 3/01/17 Company 902 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T104">
+<Obj plainTxt="False" ><![CDATA[[ TeScreen ].Sync]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:51]]></Time>
+<TimeTick>1488374991</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="147" >
+<Disp><![CDATA[[ TeScreen ].Sync]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="145" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="129" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T105">
+<Obj ><![CDATA[Verify Populated Site No#]]></Obj>
+<Details ><![CDATA[The Populated Site No# : 00001. The Site No# in the Grid : 00001]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:52]]></Time>
+<TimeTick>1488374992</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="149" status="Passed" >
+<Disp><![CDATA[Verify Populated Site No#]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T106">
+<Obj ><![CDATA[Verify Populated Address]]></Obj>
+<Details ><![CDATA[The Populated Address : 6312 COMPTON AVE. The Site Address in the Grid : 6312 COMPTON AVE]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:52]]></Time>
+<TimeTick>1488374992</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="150" status="Passed" >
+<Disp><![CDATA[Verify Populated Address]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T107">
+<Obj ><![CDATA[Verify Populated Account Name]]></Obj>
+<Details ><![CDATA[The Populated Account Name : #109 MUFFLER SHOP. The Site Address in the Grid : #109 MUFFLER SHOP]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:52]]></Time>
+<TimeTick>1488374992</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="151" status="Passed" >
+<Disp><![CDATA[Verify Populated Account Name]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T108">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:52]]></Time>
+<TimeTick>1488374992</TimeTick>
+<Step rID="T109">
+<Obj plainTxt="False" ><![CDATA[BIGDS021_CustomerService]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:52]]></Time>
+<TimeTick>1488374992</TimeTick>
+<Step rID="T110">
+<Obj plainTxt="False" ><![CDATA[[ 00001 ].SetCursorPos]]></Obj>
+<Details plainTxt="False" ><![CDATA[0]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:52]]></Time>
+<TimeTick>1488374992</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="155" >
+<Disp><![CDATA[[ 00001 ].SetCursorPos]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T111">
+<Obj plainTxt="False" ><![CDATA[[ 00001 ].Set]]></Obj>
+<Details plainTxt="False" ><![CDATA["1"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:52]]></Time>
+<TimeTick>1488374992</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="157" >
+<Disp><![CDATA[[ 00001 ].Set]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="154" >
+<Disp><![CDATA[BIGDS021_CustomerService]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="153" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Summary sTime="3/1/2017 - 18:59:47" eTime="3/1/2017 - 18:59:52" passed="6" failed="0" warnings="0" ></Summary>
+<NodeArgs eType="StartAction" icon="12" nRep="109" status="Passed" >
+<Disp><![CDATA[Action1 [BIGDS021_CustomerService] Summary]]></Disp>
+</NodeArgs>
+</Action>
+<Step rID="T112">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:52]]></Time>
+<TimeTick>1488374992</TimeTick>
+<Step rID="T113">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:52]]></Time>
+<TimeTick>1488374992</TimeTick>
+<Step rID="T114">
+<Obj plainTxt="False" ><![CDATA[[ 3/01/17 Company 902 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_PF2"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:52]]></Time>
+<TimeTick>1488374992</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="162" >
+<Disp><![CDATA[[ 3/01/17 Company 902 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="161" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="160" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Action rID="T115">
+<AName><![CDATA[Action1 [BIGDS031_ServiceRecording]]]></AName>
+<Step rID="T116">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:53]]></Time>
+<TimeTick>1488374993</TimeTick>
+<Step rID="T117">
+<Obj plainTxt="False" ><![CDATA[BIGDS031_SERVICE RECORDING]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:53]]></Time>
+<TimeTick>1488374993</TimeTick>
+<Step rID="T118">
+<Obj plainTxt="False" ><![CDATA[ServicingRecording.Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:53]]></Time>
+<TimeTick>1488374993</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="166" >
+<Disp><![CDATA[ServicingRecording.Exist]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="165" >
+<Disp><![CDATA[BIGDS031_SERVICE RECORDING]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="164" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T119">
+<Obj ><![CDATA[Verify the 'Service Recording' Screen]]></Obj>
+<Details ><![CDATA[The 'Service Recording' screen is Available]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:53]]></Time>
+<TimeTick>1488374993</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="167" status="Passed" >
+<Disp><![CDATA[Verify the 'Service Recording' Screen]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T120">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:53]]></Time>
+<TimeTick>1488374993</TimeTick>
+<Step rID="T121">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:53]]></Time>
+<TimeTick>1488374993</TimeTick>
+<Step rID="T122">
+<Obj plainTxt="False" ><![CDATA[[ 34703(protected) ].Exist]]></Obj>
+<Details plainTxt="False" ><![CDATA["Object exists"]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:53]]></Time>
+<TimeTick>1488374993</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="170" >
+<Disp><![CDATA[[ 34703(protected) ].Exist]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="9" nRep="169" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="168" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T123">
+<Obj ><![CDATA[Verify the Serv # '34703']]></Obj>
+<Details ><![CDATA[The Serv # '34703' is Available]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:54]]></Time>
+<TimeTick>1488374994</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="171" status="Passed" >
+<Disp><![CDATA[Verify the Serv # '34703']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T124">
+<Obj ><![CDATA[Verify the Status]]></Obj>
+<Details ><![CDATA[The Status of the Serv# '34703' is already 'Y']]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:54]]></Time>
+<TimeTick>1488374994</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="172" status="Failed" >
+<Disp><![CDATA[Verify the Status]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T125">
+<Obj plainTxt="False" ><![CDATA[Stop Run]]></Obj>
+<Details plainTxt="False" ><![CDATA[Run stopped by user.]]></Details>
+<Time><![CDATA[3/1/2017 - 18:59:54]]></Time>
+<TimeTick>1488374994</TimeTick>
+<NodeArgs eType="General" icon="13" nRep="173" status="Information" >
+<Disp><![CDATA[Stop Run]]></Disp>
+</NodeArgs>
+</Step>
+<Summary sTime="3/1/2017 - 18:59:53" eTime="3/1/2017 - 18:59:54" passed="2" failed="1" warnings="0" ></Summary>
+<NodeArgs eType="StartAction" icon="12" nRep="163" status="Failed" >
+<Disp><![CDATA[Action1 [BIGDS031_ServiceRecording] Summary]]></Disp>
+</NodeArgs>
+</Action>
+<Summary sTime="3/1/2017 - 18:59:05" eTime="3/1/2017 - 18:59:54" passed="11" failed="0" warnings="0" ></Summary>
+<NodeArgs eType="StartAction" icon="3" nRep="6" status="Failed" >
+<Disp><![CDATA[Action1 Summary]]></Disp>
+</NodeArgs>
+</Action>
+<Summary sTime="3/1/2017 - 18:59:04" eTime="3/1/2017 - 18:59:54" passed="19" failed="1" warnings="0" ></Summary>
+<NodeArgs eType="StartTest" icon="1" nRep="3" status="Failed" >
+<Disp><![CDATA[Test Driver_Repaired Summary]]></Disp>
+</NodeArgs>
+</Doc>
+</Report>

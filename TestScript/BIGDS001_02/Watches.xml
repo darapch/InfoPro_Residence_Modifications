@@ -1,0 +1,3 @@
+﻿<Properties>
+  <WatchEntry0 value="Int(Trim(TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIGDS002&quot;).TeField(&quot;ActualLifts&quot;).GetROProperty(&quot;text&quot;)))" />
+</Properties>
