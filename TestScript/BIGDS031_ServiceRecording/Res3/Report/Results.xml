@@ -144,29 +144,100 @@
 <Action rID="T3">
 <AName><![CDATA[Action1]]></AName>
 <Step rID="T4">
-<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
-<Details plainTxt="False" ><![CDATA[[IBM][System i Access ODBC Driver][DB2 for i5/OS]SQL0010 - String constant beginning '90295238' not delimited.<BR/>Line (146): &quot;Set obj_resultSet = obj_conn.Execute(str_sqlBIPSUOQuery)&quot;. ]]></Details>
-<Time><![CDATA[3/1/2017 - 18:48:17]]></Time>
-<TimeTick>1488374297</TimeTick>
-<NodeArgs eType="Replay" icon="4" nRep="7" status="Failed" Source="Action1" SourceLine="145" >
-<Disp><![CDATA[Run Error]]></Disp>
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/3/2017 - 14:17:10]]></Time>
+<TimeTick>1488530830</TimeTick>
+<Step rID="T5">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/3/2017 - 14:17:10]]></Time>
+<TimeTick>1488530830</TimeTick>
+<Step rID="T6">
+<Obj plainTxt="False" ><![CDATA[[ 3/03/17 Company 902 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_PF6"]]></Details>
+<Time><![CDATA[3/3/2017 - 14:17:10]]></Time>
+<TimeTick>1488530830</TimeTick>
+<NodeArgs eType="Replay" icon="5" nRep="10" >
+<Disp><![CDATA[[ 3/03/17 Company 902 ].SendKey]]></Disp>
 </NodeArgs>
 </Step>
-<Step rID="T5">
+<NodeArgs eType="Context" icon="5" nRep="9" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T7">
+<Obj plainTxt="False" ><![CDATA[BIGDS031_SERVICE RECORDING]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/3/2017 - 14:17:30]]></Time>
+<TimeTick>1488530850</TimeTick>
+<Step rID="T8">
+<Obj plainTxt="False" ><![CDATA[Code]]></Obj>
+<Details plainTxt="False" ><![CDATA[Cannot&nbsp;identify&nbsp;the&nbsp;object&nbsp;"Code"&nbsp;(of&nbsp;class&nbsp;TeField).<br/>Verify&nbsp;that&nbsp;this&nbsp;object's&nbsp;properties&nbsp;match&nbsp;an&nbsp;object&nbsp;currently&nbsp;displayed&nbsp;in&nbsp;your&nbsp;application.]]></Details>
+<Time><![CDATA[3/3/2017 - 14:17:30]]></Time>
+<TimeTick>1488530850</TimeTick>
+<Step rID="T9">
+<Obj plainTxt="False" ><![CDATA[Code]]></Obj>
+<Details plainTxt="False" ><![CDATA[Object's physical description:<br>Terminal Emulator Field protected property = 0<br>miccommentproperty = <br>Terminal Emulator Field ID = 494<br>Attached Text = 34699<br>]]></Details>
+<Time><![CDATA[3/3/2017 - 14:17:30]]></Time>
+<TimeTick>1488530850</TimeTick>
+<NodeArgs eType="Replay" icon="7" nRep="15" status="Warning" nType="Description" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[Code]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Replay" icon="6" nRep="14" status="Failed" nType="Run Error" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[Code]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="5" nRep="13" status="Failed" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[BIGDS031_SERVICE RECORDING]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="4" nRep="8" status="Failed" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T10">
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/3/2017 - 14:17:30]]></Time>
+<TimeTick>1488530850</TimeTick>
+<Step rID="T11">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[Cannot identify the object &quot;Code&quot; (of class TeField).<BR/>Verify that this object's properties match an object currently displayed in your application.<BR/>Line (273): &quot;TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIGDS031_SERVICE RECORDING&quot;).TeField(&quot;Code&quot;).SetCursorPos&quot;. ]]></Details>
+<Time><![CDATA[3/3/2017 - 14:17:30]]></Time>
+<TimeTick>1488530850</TimeTick>
+<NodeArgs eType="Replay" icon="7" nRep="17" status="Failed" Source="Action1" SourceLine="272" >
+<Disp><![CDATA[Run Error]]></Disp>
+<BtmPane vType="ViewerGen.SSViewerGen" >
+<Path><![CDATA[ZIP::Act1\Row0\ssf2.xml]]></Path>
+<ASHilite><![CDATA[198312]]></ASHilite>
+</BtmPane>
+</NodeArgs>
+</Step>
+<Step rID="T12">
 <Obj plainTxt="False" ><![CDATA[Stop Run]]></Obj>
 <Details plainTxt="False" ><![CDATA[Run stopped by user.]]></Details>
-<Time><![CDATA[3/1/2017 - 18:48:40]]></Time>
-<TimeTick>1488374320</TimeTick>
-<NodeArgs eType="General" icon="5" nRep="8" status="Information" >
+<Time><![CDATA[3/3/2017 - 14:17:32]]></Time>
+<TimeTick>1488530852</TimeTick>
+<NodeArgs eType="General" icon="8" nRep="18" status="Information" >
 <Disp><![CDATA[Stop Run]]></Disp>
 </NodeArgs>
 </Step>
-<Summary sTime="3/1/2017 - 18:48:13" eTime="3/1/2017 - 18:48:40" passed="0" failed="1" warnings="0" ></Summary>
+<NodeArgs eType="Context" icon="4" nRep="16" status="Failed" Source="Action1" SourceLine="272" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+<BtmPane vType="ViewerGen.SSViewerGen" >
+<Path><![CDATA[ZIP::Act1\Row0\ssf1.xml]]></Path>
+<ASHilite><![CDATA[198312]]></ASHilite>
+</BtmPane>
+</NodeArgs>
+</Step>
+<Summary sTime="3/3/2017 - 14:17:10" eTime="3/3/2017 - 14:17:32" passed="0" failed="2" warnings="1" ></Summary>
 <NodeArgs eType="StartAction" icon="3" nRep="6" status="Failed" >
 <Disp><![CDATA[Action1 Summary]]></Disp>
 </NodeArgs>
 </Action>
-<Summary sTime="3/1/2017 - 18:48:13" eTime="3/1/2017 - 18:48:40" passed="0" failed="1" warnings="0" ></Summary>
+<Summary sTime="3/3/2017 - 14:17:09" eTime="3/3/2017 - 14:17:32" passed="0" failed="2" warnings="1" ></Summary>
 <NodeArgs eType="StartTest" icon="1" nRep="3" status="Failed" >
 <Disp><![CDATA[Test BIGDS031_ServiceRecording Summary]]></Disp>
 </NodeArgs>

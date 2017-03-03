@@ -39,6 +39,7 @@ Call func_SendKey("ENTER")
 
 
 strSiteNumHeader = TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("SiteNumHeader").GetROProperty("text")
+Environment.Value("Site") = strSiteNo
 strSiteNameAddressHeader = TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("SiteNameAddressHeader").GetROProperty("text")
 strSiteNameHeader = TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("SiteNameHeader").GetROProperty("text")
 

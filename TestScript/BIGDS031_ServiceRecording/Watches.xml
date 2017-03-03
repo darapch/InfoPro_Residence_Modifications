@@ -1,13 +1,4 @@
 ﻿<Properties>
-  <WatchEntry0 value="Environment.Value(&quot;DivisionNumber&quot;)" />
-  <WatchEntry1 value="Environment.Value(&quot;AccountNumber&quot;)" />
-  <WatchEntry10 value="intBIPSXCount" />
-  <WatchEntry2 value="Environment.Value(&quot;Site&quot;)" />
-  <WatchEntry3 value="Environment.Value(&quot;ServiceNumber&quot;)" />
-  <WatchEntry4 value="Environment.Value(&quot;ScheduledCompletionMonth&quot;)" />
-  <WatchEntry5 value="Environment.Value(&quot;ScheduledCompletionDate&quot;)" />
-  <WatchEntry6 value="Environment.Value(&quot;TimeStamp&quot;)" />
-  <WatchEntry7 value="strExpectedCompKey" />
-  <WatchEntry8 value="str_sqlBIPSUOQuery" />
-  <WatchEntry9 value="intBIPSUOCount" />
+  <WatchEntry0 value="strActionTakenText" />
+  <WatchEntry1 value="intCodeFieldIDInHelp" />
 </Properties>

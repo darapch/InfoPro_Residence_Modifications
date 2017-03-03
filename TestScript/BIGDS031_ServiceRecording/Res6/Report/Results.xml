@@ -144,30 +144,129 @@
 <Action rID="T3">
 <AName><![CDATA[Action1]]></AName>
 <Step rID="T4">
-<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
-<Details plainTxt="False" ><![CDATA[Type mismatch: 'func_reportStatus'<BR/>Line (168): &quot;Call func_reportStatus(&quot;Fail&quot;,&quot;Verify Record Existancy for the Trigger Table BIPSUO&quot;,&quot;No Record is available for BIPSUO&quot;)&quot;. ]]></Details>
-<Time><![CDATA[3/1/2017 - 18:55:20]]></Time>
-<TimeTick>1488374720</TimeTick>
-<NodeArgs eType="Replay" icon="4" nRep="7" status="Failed" Source="Action1" SourceLine="167" >
-<Disp><![CDATA[Run Error]]></Disp>
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/3/2017 - 14:19:05]]></Time>
+<TimeTick>1488530945</TimeTick>
+<Step rID="T5">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/3/2017 - 14:19:05]]></Time>
+<TimeTick>1488530945</TimeTick>
+<Step rID="T6">
+<Obj plainTxt="False" ><![CDATA[[ 3/03/17 Company 902 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_PF6"]]></Details>
+<Time><![CDATA[3/3/2017 - 14:19:05]]></Time>
+<TimeTick>1488530945</TimeTick>
+<NodeArgs eType="Replay" icon="5" nRep="10" >
+<Disp><![CDATA[[ 3/03/17 Company 902 ].SendKey]]></Disp>
 </NodeArgs>
 </Step>
-<Step rID="T5">
+<NodeArgs eType="Context" icon="5" nRep="9" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T7">
+<Obj plainTxt="False" ><![CDATA[BIGDS031_SERVICE RECORDING]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/3/2017 - 14:19:06]]></Time>
+<TimeTick>1488530946</TimeTick>
+<Step rID="T8">
+<Obj plainTxt="False" ><![CDATA[Code.SetCursorPos]]></Obj>
+<Details plainTxt="False" ><![CDATA[0]]></Details>
+<Time><![CDATA[3/3/2017 - 14:19:06]]></Time>
+<TimeTick>1488530946</TimeTick>
+<NodeArgs eType="Replay" icon="6" nRep="13" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[Code.SetCursorPos]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="5" nRep="12" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[BIGDS031_SERVICE RECORDING]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T9">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/3/2017 - 14:19:06]]></Time>
+<TimeTick>1488530946</TimeTick>
+<Step rID="T10">
+<Obj plainTxt="False" ><![CDATA[[ 3/03/17 Company 902 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_PF4"]]></Details>
+<Time><![CDATA[3/3/2017 - 14:19:06]]></Time>
+<TimeTick>1488530946</TimeTick>
+<NodeArgs eType="Replay" icon="5" nRep="16" >
+<Disp><![CDATA[[ 3/03/17 Company 902 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T11">
+<Obj plainTxt="False" ><![CDATA[[ ADCM(protected) ].SetCursorPos]]></Obj>
+<Details plainTxt="False" ><![CDATA[0]]></Details>
+<Time><![CDATA[3/3/2017 - 14:19:06]]></Time>
+<TimeTick>1488530946</TimeTick>
+<NodeArgs eType="Replay" icon="6" nRep="18" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[[ ADCM(protected) ].SetCursorPos]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T12">
+<Obj plainTxt="False" ><![CDATA[[ 3/03/17 01:49:06 T ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_BACKTAB"]]></Details>
+<Time><![CDATA[3/3/2017 - 14:19:06]]></Time>
+<TimeTick>1488530946</TimeTick>
+<NodeArgs eType="Replay" icon="5" nRep="20" >
+<Disp><![CDATA[[ 3/03/17 01:49:06 T ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T13">
+<Obj plainTxt="False" ><![CDATA[[ 3/03/17 01:49:06 T ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["1"]]></Details>
+<Time><![CDATA[3/3/2017 - 14:19:07]]></Time>
+<TimeTick>1488530947</TimeTick>
+<NodeArgs eType="Replay" icon="5" nRep="22" >
+<Disp><![CDATA[[ 3/03/17 01:49:06 T ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T14">
+<Obj plainTxt="False" ><![CDATA[[ 3/03/17 01:49:06 T ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_ENTER"]]></Details>
+<Time><![CDATA[3/3/2017 - 14:19:07]]></Time>
+<TimeTick>1488530947</TimeTick>
+<NodeArgs eType="Replay" icon="5" nRep="24" >
+<Disp><![CDATA[[ 3/03/17 01:49:06 T ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T15">
+<Obj plainTxt="False" ><![CDATA[[ TeScreen ].Sync]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[3/3/2017 - 14:19:07]]></Time>
+<TimeTick>1488530947</TimeTick>
+<NodeArgs eType="Replay" icon="5" nRep="25" >
+<Disp><![CDATA[[ TeScreen ].Sync]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T16">
 <Obj plainTxt="False" ><![CDATA[Stop Run]]></Obj>
 <Details plainTxt="False" ><![CDATA[Run stopped by user.]]></Details>
-<Time><![CDATA[3/1/2017 - 18:55:54]]></Time>
-<TimeTick>1488374754</TimeTick>
-<NodeArgs eType="General" icon="5" nRep="8" status="Information" >
+<Time><![CDATA[3/3/2017 - 14:20:07]]></Time>
+<TimeTick>1488531007</TimeTick>
+<NodeArgs eType="General" icon="7" nRep="27" status="Information" >
 <Disp><![CDATA[Stop Run]]></Disp>
 </NodeArgs>
 </Step>
-<Summary sTime="3/1/2017 - 18:55:16" eTime="3/1/2017 - 18:55:54" passed="0" failed="1" warnings="0" ></Summary>
-<NodeArgs eType="StartAction" icon="3" nRep="6" status="Failed" >
+<NodeArgs eType="Context" icon="5" nRep="15" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="4" nRep="8" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Summary sTime="3/3/2017 - 14:19:05" eTime="3/3/2017 - 14:20:07" passed="0" failed="0" warnings="0" ></Summary>
+<NodeArgs eType="StartAction" icon="3" nRep="6" >
 <Disp><![CDATA[Action1 Summary]]></Disp>
 </NodeArgs>
 </Action>
-<Summary sTime="3/1/2017 - 18:55:16" eTime="3/1/2017 - 18:55:54" passed="0" failed="1" warnings="0" stopped="True" ></Summary>
-<NodeArgs eType="StartTest" icon="1" nRep="3" status="Failed" >
+<Summary sTime="3/3/2017 - 14:19:05" eTime="3/3/2017 - 14:20:07" passed="0" failed="0" warnings="0" stopped="True" ></Summary>
+<NodeArgs eType="StartTest" icon="1" nRep="3" >
 <Disp><![CDATA[Test BIGDS031_ServiceRecording Summary]]></Disp>
 </NodeArgs>
 </Doc>

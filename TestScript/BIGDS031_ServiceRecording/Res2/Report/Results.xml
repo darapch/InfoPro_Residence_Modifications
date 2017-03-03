@@ -144,30 +144,57 @@
 <Action rID="T3">
 <AName><![CDATA[Action1]]></AName>
 <Step rID="T4">
-<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
-<Details plainTxt="False" ><![CDATA[[IBM][System i Access ODBC Driver][DB2 for i5/OS]SQL0010 - String constant beginning '90295238' not delimited.<BR/>Line (146): &quot;Set obj_resultSet = obj_conn.Execute(str_sqlBIPSUOQuery)&quot;. ]]></Details>
-<Time><![CDATA[3/1/2017 - 18:47:43]]></Time>
-<TimeTick>1488374263</TimeTick>
-<NodeArgs eType="Replay" icon="4" nRep="7" status="Failed" Source="Action1" SourceLine="145" >
-<Disp><![CDATA[Run Error]]></Disp>
-</NodeArgs>
-</Step>
+<Obj plainTxt="False" ><![CDATA[InfoProWindow]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeWindow]]></Details>
+<Time><![CDATA[3/3/2017 - 14:04:37]]></Time>
+<TimeTick>1488530077</TimeTick>
 <Step rID="T5">
-<Obj plainTxt="False" ><![CDATA[Stop Run]]></Obj>
-<Details plainTxt="False" ><![CDATA[Run stopped by user.]]></Details>
-<Time><![CDATA[3/1/2017 - 18:48:03]]></Time>
-<TimeTick>1488374283</TimeTick>
-<NodeArgs eType="General" icon="5" nRep="8" status="Information" >
-<Disp><![CDATA[Stop Run]]></Disp>
+<Obj plainTxt="False" ><![CDATA[BIGDS031_SERVICE RECORDING]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/3/2017 - 14:04:37]]></Time>
+<TimeTick>1488530077</TimeTick>
+<Step rID="T6">
+<Obj plainTxt="False" ><![CDATA[Code.SetCursorPos]]></Obj>
+<Details plainTxt="False" ><![CDATA[0]]></Details>
+<Time><![CDATA[3/3/2017 - 14:04:37]]></Time>
+<TimeTick>1488530077</TimeTick>
+<NodeArgs eType="Replay" icon="6" nRep="10" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[Code.SetCursorPos]]></Disp>
 </NodeArgs>
 </Step>
-<Summary sTime="3/1/2017 - 18:47:40" eTime="3/1/2017 - 18:48:03" passed="0" failed="1" warnings="0" ></Summary>
-<NodeArgs eType="StartAction" icon="3" nRep="6" status="Failed" >
+<NodeArgs eType="Context" icon="5" nRep="9" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[BIGDS031_SERVICE RECORDING]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T7">
+<Obj plainTxt="False" ><![CDATA[]]></Obj>
+<Details plainTxt="False" ><![CDATA[TeScreen]]></Details>
+<Time><![CDATA[3/3/2017 - 14:04:37]]></Time>
+<TimeTick>1488530077</TimeTick>
+<Step rID="T8">
+<Obj plainTxt="False" ><![CDATA[[ 3/03/17 Company 902 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_PF4"]]></Details>
+<Time><![CDATA[3/3/2017 - 14:04:37]]></Time>
+<TimeTick>1488530077</TimeTick>
+<NodeArgs eType="Replay" icon="5" nRep="13" >
+<Disp><![CDATA[[ 3/03/17 Company 902 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="5" nRep="12" >
+<Disp><![CDATA[]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="4" nRep="8" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[InfoProWindow]]></Disp>
+</NodeArgs>
+</Step>
+<Summary sTime="3/3/2017 - 14:04:37" eTime="3/3/2017 - 14:04:37" passed="0" failed="0" warnings="0" ></Summary>
+<NodeArgs eType="StartAction" icon="3" nRep="6" >
 <Disp><![CDATA[Action1 Summary]]></Disp>
 </NodeArgs>
 </Action>
-<Summary sTime="3/1/2017 - 18:47:39" eTime="3/1/2017 - 18:48:03" passed="0" failed="1" warnings="0" stopped="True" ></Summary>
-<NodeArgs eType="StartTest" icon="1" nRep="3" status="Failed" >
+<Summary sTime="3/3/2017 - 14:04:36" eTime="3/3/2017 - 14:04:37" passed="0" failed="0" warnings="0" ></Summary>
+<NodeArgs eType="StartTest" icon="1" nRep="3" >
 <Disp><![CDATA[Test BIGDS031_ServiceRecording Summary]]></Disp>
 </NodeArgs>
 </Doc>

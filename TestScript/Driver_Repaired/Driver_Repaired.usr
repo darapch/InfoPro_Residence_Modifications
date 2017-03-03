@@ -26,6 +26,7 @@ Default Profile=default.usp
 [Rendezvous]
 
 [Transactions]
+StartRun=
 
 [ActiveScript]
 Lang=none

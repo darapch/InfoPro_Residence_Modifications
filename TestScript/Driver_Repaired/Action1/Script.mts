@@ -11,13 +11,13 @@ Dim obj_fso
 Dim obj_service, str_process
 Dim arr_BIDDS035Fields
 
-
+Services.StartTransaction "StartRun"
 
 Environment.Value("RootPath") = Split(Environment.Value("TestDir"),"TestScript")(0)
 ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 	
 	If Environment.Value("is_batchrun")=false Then
-		Environment.Value("CurrentTestDataSheet") = "CloseF2NoteSFDC"	
+		Environment.Value("CurrentTestDataSheet") = "NON-SERVICEF2"	
 	End If	
 
 	
@@ -36,6 +36,8 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 	Call CreateReport(Environment.Value("RootPath") & "Reports","HTML",strReportFileName)
 	
 	Reporter.ReportEvent micDone, "START RUN", Now()
+	
+	
 	
 	Set obj_fso = CreateObject("Scripting.FileSystemObject")
 	
@@ -387,7 +389,8 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 		End Select 'Select Case UCASE(TRIM(str_currentFunc))
 	Next 'For int_currentRow = 1 To int_rowCount
 	
-	 		
+			
+Services.EndTransaction "StartRun"
 
 
  
