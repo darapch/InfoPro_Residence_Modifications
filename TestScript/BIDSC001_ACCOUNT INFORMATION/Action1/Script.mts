@@ -1,23 +1,27 @@
 ﻿
 
+
+
+
+
 Set objAccountNumberField = TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Protected:=True","attached text:=" & Environment.Value("AccountNumber") &  ".*protected.*")
 	
 If objAccountNumberField.Exist(5) Then
 	Call func_reportStatus("Pass","Verify Account Information Screen","The Account Information screen is displayed for the account " & Environment.Value("AccountNumber"))
+	Select Case UCase(Environment.Value("Purpose"))
+		Case "VALIDATE"
+			Call func_AccountAddressValidation()
+		Case "MOVE FORWARD"	
+			Call func_SendKey("ENTER")
+			If TeWindow("InfoProWindow").TeScreen("column count:=80").TeField("text:=CONTAINER SELECTION SCREEN").Exist(5) Then
+				Call func_reportStatus("Pass","Hit ENTER on the 'Account Information' screen","'CONTAINER SELECTION SCREEN' is displayed")
+			End If
+	End Select
 Else
-	Call func_reportStatus("Fail","Verify Account Information Screen","The Account Information screen is NOT displayed for the account " & Environment.Value("AccountNumber"))
-	ExitTest
+	Call func_reportStatus("Fail","Verify Account Information Screen","The Account Information screen is NOT displayed for the account " & Environment.Value("AccountNumber"))	
 End If
 
-Select Case UCase(Environment.Value("Purpose"))
-	Case "VALIDATE"
-		Call func_AccountAddressValidation()
-	Case "MOVE FORWARD"	
-		Call func_SendKey("ENTER")
-		If TeWindow("InfoProWindow").TeScreen("column count:=80").TeField("text:=CONTAINER SELECTION SCREEN").Exist(5) Then
-			Call func_reportStatus("Pass","Hit ENTER on the 'Account Information' screen","'CONTAINER SELECTION SCREEN' is displayed")
-		End If
-End Select
+
 
 'Environment.Value("AccountNumber") = "1127418"
 
@@ -219,6 +223,7 @@ Function func_AccountAddressValidation()
 		Call func_reportStatus("Fail", "Verify ZIP Corrected", "The ZIP is NOT corrected to '" & strToBeCorrectedZIP & "'")
 	End If
 End Function
+
 
 
 

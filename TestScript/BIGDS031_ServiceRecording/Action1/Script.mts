@@ -3,7 +3,7 @@ intsupposedSpaces = 5-Len(Environment.Value("DivisionNumber"))
 Environment.Value("DivisionNumber") = Space(intsupposedSpaces) & Environment.Value("DivisionNumber")
 'Environment.Value("AccountNumber") = "9523877"
 'Environment.Value("Site") = "00001"
-'Environment.Value("ServiceNumber") = "34728"
+'Environment.Value("ServiceNumber") = "34734"
 
 'Environment.Value("Purpose")="UPDATEF2NOTESFDC"
 
@@ -38,7 +38,7 @@ End Select
 
 Function func_CloseF2NoteSFDC()
 	Call func_reportStatus("Done","CLOSE the Service Code : " & Environment.Value("ServiceNumber"),"")
-	intServFieldID = func_SearchItemInGrid(Environment.Value("ServiceNumber"))
+	intServFieldID = func_SearchItemInGrid(Environment.Value("ServiceNumber"),0)
 		If intServFieldID>0 Then
 			intServSelFieldID = intServFieldID-2
 			intCLOFieldID = intServFieldID+7	
@@ -104,7 +104,7 @@ Function func_CloseF2NoteSFDC()
 				
 				str_sqlBIPSUOQuery = "SELECT * FROM NAEAIPDN.P_BIPSUO WHERE COMPANY_NUMBER='" & Environment.Value("DivisionNumber") & "' and SERVICE_RECORDING_NO='" & Environment.Value("ServiceNumber") &  "' and TRIGGER_TABLE='BIPSUO' and TEXT_DESCRIPTION='" & strCurrentServiceText & "'"
 				
-				If GetUniqueRecordFromDBData("Sys01","darapch","Sachin8187",str_sqlBIPSUOQuery) Then		
+				If func_GetUniqueRecordFromDBData("Sys01","darapch","Sachin8187",str_sqlBIPSUOQuery) Then		
 					Call func_reportStatus("Pass","Verify Record Existancy for the Trigger Table BIPSUO","Atleast 1 Record is available for BIPSUO")
 					If Trim(Environment.Value("COMPOSITE_KEY"))=strExpectedCompKey Then
 						Call func_reportStatus("Done","Composite Key in BIPSUO Record","Composite Key Found for BIPSUO is '" & Environment.Value("COMPOSITE_KEY") & "'")			
@@ -118,7 +118,7 @@ Function func_CloseF2NoteSFDC()
 					
 				str_sqlBIPSXQuery = "SELECT * FROM NAEAIPDN.P_BIPSUO WHERE COMPANY_NUMBER='" & Environment.Value("DivisionNumber") & "' and SERVICE_RECORDING_NO='" & Environment.Value("ServiceNumber") &  "' and TRIGGER_TABLE='BIPSX' and F10_TEXT_DESCRIPTION='" & strActionTakenText & "'"
 				
-				If GetUniqueRecordFromDBData("Sys01","darapch","Sachin8187",str_sqlBIPSXQuery) Then	
+				If func_GetUniqueRecordFromDBData("Sys01","darapch","Sachin8187",str_sqlBIPSXQuery) Then	
 					Call func_reportStatus("Pass","Verify Record Existancy for the Trigger Table BIPSX","Atleast 1 Record is available for BIPSX")
 					Call func_reportStatus("Pass","Verify data in F10_Text_Description column","The Value of the column 'F10_Text_Description' in DB is '" & strActionTakenText & "'. The Action Taken text provided is '" & strActionTakenText & "'")
 					If Environment.Value("RECORD_CLOSED")="Y" Then
@@ -143,7 +143,7 @@ End Function
 
 Function func_UpdateF2NoteSFDC()
 	Call func_reportStatus("Done","UPDATE the Service Code : " & Environment.Value("ServiceNumber"),"")
-	intServFieldID = func_SearchItemInGrid(Environment.Value("ServiceNumber"))
+	intServFieldID = func_SearchItemInGrid(Environment.Value("ServiceNumber"),0)
 	If intServFieldID>0 Then
 		intServSelFieldID = intServFieldID-2
 		intCLOFieldID = intServFieldID+7	
@@ -154,8 +154,10 @@ Function func_UpdateF2NoteSFDC()
 	'		ExitTest	
 		Else
 			Call func_reportStatus("Pass","Verify the Status","The Status for the Serv# '" & Environment.Value("ServiceNumber") & "' is '" & strStatus & "'")	
-			TeWindow("InfoProWindow").TeScreen("BIGDS031_SERVICE RECORDING").TeField("field id:=" & intServSelFieldID).Set "1"
+			TeWindow("InfoProWindow").TeScreen("BIGDS031_SERVICE RECORDING").TeField("field id:=" & intServSelFieldID).Set "1"			
 			Call func_SendKey("ENTER")
+			msgbox Err.number
+			print Err.number
 			strCode = TeWindow("InfoProWindow").TeScreen("BIGDS031_SERVICE RECORDING").TeField("Code").GetROProperty("text")
 			Call func_reportStatus("Done","The Available Code","The Available Code : " & strCode)
 			'TeWindow("InfoProWindow").TeScreen("BIGDS031_SERVICE RECORDING").TeField("Code").SetCursorPos
@@ -208,7 +210,7 @@ Function func_UpdateF2NoteSFDC()
 			
 			str_sqlBIPSUOQuery = "SELECT * FROM NAEAIPDN.P_BIPSUO WHERE COMPANY_NUMBER='" & Environment.Value("DivisionNumber") & "' and SERVICE_RECORDING_NO='" & Environment.Value("ServiceNumber") &  "' and TRIGGER_TABLE='BIPSUO' and TEXT_DESCRIPTION='" & strServiceText & "'"
 			
-			If GetUniqueRecordFromDBData("Sys01","darapch","Sachin8187",str_sqlBIPSUOQuery) Then		
+			If func_GetUniqueRecordFromDBData("Sys01","darapch","Sachin8187",str_sqlBIPSUOQuery) Then		
 				Call func_reportStatus("Pass","Verify Record Existancy for the Trigger Table BIPSUO","Atleast 1 Record is available for BIPSUO")
 				If Trim(Environment.Value("COMPOSITE_KEY"))=strExpectedCompKey Then
 					Call func_reportStatus("Done","Composite Key in BIPSUO Record","Composite Key Found for BIPSUO is '" & Environment.Value("COMPOSITE_KEY") & "'")			
@@ -235,7 +237,7 @@ Function func_UpdateF2NoteSFDC()
 				
 			str_sqlBIPSXQuery = "SELECT * FROM NAEAIPDN.P_BIPSUO WHERE COMPANY_NUMBER='" & Environment.Value("DivisionNumber") & "' and SERVICE_RECORDING_NO='" & Environment.Value("ServiceNumber") &  "' and TRIGGER_TABLE='BIPSX' and F10_TEXT_DESCRIPTION='" & strActionTakenText & "'"
 			
-			If GetUniqueRecordFromDBData("Sys01","darapch","Sachin8187",str_sqlBIPSXQuery) Then	
+			If func_GetUniqueRecordFromDBData("Sys01","darapch","Sachin8187",str_sqlBIPSXQuery) Then	
 				Call func_reportStatus("Pass","Verify Record Existancy for the Trigger Table BIPSX","Atleast 1 Record is available for BIPSX")
 				Call func_reportStatus("Pass","Verify data in F10_Text_Description column","The Value of the column 'F10_Text_Description' in DB is '" & strActionTakenText & "'. The Action Taken text provided is '" & strActionTakenText & "'")				
 			Else
@@ -253,30 +255,7 @@ End Function
 
 
 
-Function GetUniqueRecordFromDBData(strSystem,strUID,strPwd,strQuery)
-	Set obj_conn = CreateObject("ADODB.Connection")	
-	str_connectionString = "Driver={iSeries Access ODBC Driver};System=" & strSystem & ";Uid=" & strUID & ";Pwd=" & strPwd		
-	obj_conn.open str_connectionString	
-	Set obj_resultSet = obj_conn.Execute(strQuery)
-	intRecords = 0	
-	While NOT obj_resultSet.EOF
-		intRecords = intRecords + 1	
-		obj_resultSet.MoveNext
-	Wend
-	If intRecords>0 Then
-		obj_resultSet.MoveFirst
-		For intFieldCount = 0 To obj_resultSet.Fields.Count-1
-			Environment.Value(obj_resultSet.Fields.Item(intFieldCount).Name)=obj_resultSet.Fields.Item(intFieldCount).Value
-			print "Environment.Value(" & obj_resultSet.Fields.Item(intFieldCount).Name & ")=" & obj_resultSet.Fields.Item(intFieldCount).Value
-		Next
-		Set obj_resultSet = Nothing
-		GetUniqueRecordFromDBData = True
-	Else
-		Set obj_resultSet = Nothing
-		GetUniqueRecordFromDBData = False
-	End If			
-	
-End Function
+
 
 
 
@@ -313,7 +292,7 @@ Function func_CreateF2Note()
 	Call func_EnterValueInTeField("BIGDS031_SERVICE RECORDING","ScheduledCompletionYear",Right(Year(Now),2))
 	Call func_SendKey("ENTER")
 	
-	intSubjectFieldID = func_SearchItemInGrid(strSubject)
+	intSubjectFieldID = func_SearchItemInGrid(strSubject,0)
 	If intSubjectFieldID>0 Then
 		intServCodeFieldID = intSubjectFieldID-52
 		Environment.Value("ServiceNumber") = TeWindow("InfoProWindow").TeScreen("BIGDS031_SERVICE RECORDING").TeField("field id:=" & intServCodeFieldID).GetROProperty("text")

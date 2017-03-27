@@ -17,18 +17,13 @@ Environment.Value("RootPath") = Split(Environment.Value("TestDir"),"TestScript")
 ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 	
 	If Environment.Value("is_batchrun")=false Then
-		Environment.Value("CurrentTestDataSheet") = "NON-SERVICEF2"	
-	End If	
-
+		Environment.Value("CurrentTestDataSheet") = "SmokeTest_Residential_Subscription"	
+	End If
 	
 	arr_path = Split(Environment.Value("TestDir"), "\")
 	Environment.Value("returncode") = 1
 	
-	
-	
 	str_excelFilePath = Environment.Value("RootPath") & "DataSheet\" & Environment.Value("CurrentTestDataSheet") & ".xls"
-	
-	
 	
 	arrExcelFilePath = Split(str_excelFilePath,"\")
 	strReportFileName = arrExcelFilePath(UBound(arrExcelFilePath))
@@ -318,9 +313,10 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 					Environment.Value("NavigateBackTOSelection") = Trim(DataTable.Value("Parameter2", "Global"))					
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS001_02","Action1", oneIteration
 				End If
-			Case "STDJC20_EODDISPATCH" 'Added by Krishna
+			Case "STDJC20_EODJOBS" 'Added by Krishna
 				
 				If Environment.Value("returncode") = 1 Then
+					Environment.Value("Job") = Trim(DataTable.Value("Parameter1", "Global"))
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\STDJC20_EOD Dispatch","Action1", oneIteration
 				End If	
 			Case "BIGDS021_CUSTOMERSERVICE" 'Added by Krishna
@@ -386,6 +382,109 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS031_ServiceRecording","Action1",oneIteration
 					
 				End If
+			Case "BIDSC000_MAINTAINCUSTOMERCONTROLS"
+				If Environment.Value("returncode") = 1 Then	
+				    If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
+				    Else
+				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
+				    End If
+				    
+				    If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("AccountNumber") = Trim(DataTable.Value("Parameter1"))				    
+				    End If								
+					
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC000_MaintainCustomerControls","Action1",oneIteration
+					
+				End If
+			Case "BIGSC002_SITESELECTIONSCREEN"
+				If Environment.Value("returncode") = 1 Then	
+				    If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
+				    Else
+				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
+				    End If
+				    
+				    If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("Site") = Trim(DataTable.Value("Parameter1"))				    
+				    End If												
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGSC002_SiteSelectionScreen","Action1",oneIteration
+					
+				End If
+			Case "BIDSC002_CONTAINER SELECTION SCREEN"
+				If Environment.Value("returncode") = 1 Then	
+				    If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
+				    Else
+				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
+				    End If
+				    
+				    If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("ContainerGroup") = Trim(DataTable.Value("Parameter1"))				    
+				    End If	
+					If DataTable.Value("Parameter2")<>"" Then
+				    	Environment.Value("Action") = Trim(DataTable.Value("Parameter2"))				    
+				    End If				    
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC002_CONTAINER SELECTION SCREEN","Action1",oneIteration					
+				End If
+			Case "BIDSC002_CONTAINER RATE INFORMATION"
+				If Environment.Value("returncode") = 1 Then	
+				    If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
+				    Else
+				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
+				    End If				    
+				    			    
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC002_CONTAINER RATE INFORMATION","Action1",oneIteration					
+				End If
+			Case "BIDSC002_SITE INFORMATION"
+				If Environment.Value("returncode") = 1 Then	
+				    If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
+				    Else
+				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
+				    End If				    
+				    If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("Site") = Trim(DataTable.Value("Parameter1"))				    
+				    End If			    
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC002_SITE INFORMATION","Action1",oneIteration					
+				End If
+			Case "BIDSC002_CONTAINER INFORMATION"
+				If Environment.Value("returncode") = 0 Then
+					ExitAction
+				End If
+				If Environment.Value("returncode") = 1 Then	
+				    If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
+				    Else
+				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
+				    End If				    
+				    If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("ContainerGroup") = Trim(DataTable.Value("Parameter1"))				    
+				    End If			    
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC002_CONTAINER INFORMATION","Action1",oneIteration					
+				End If
+			Case "BIDSC014_CONTAINER SELECTION SCREEN"
+				If Environment.Value("returncode") = 0 Then
+					ExitAction
+				End If
+				If Environment.Value("returncode") = 1 Then	
+				    If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
+				    Else
+				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
+				    End If	
+ 					If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("Site") = Trim(DataTable.Value("Parameter2"))				    
+				    End If				    
+				    If DataTable.Value("Parameter2")<>"" Then
+				    	Environment.Value("ContainerGroup") = Trim(DataTable.Value("Parameter2"))				    
+				    End If	
+					If DataTable.Value("Parameter3")<>"" Then
+				    	Environment.Value("Action") = Trim(DataTable.Value("Parameter3"))				    
+				    End If				    
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC014_CONTAINER SELECTION SCREEN","Action1",oneIteration					
+				End If
 		End Select 'Select Case UCASE(TRIM(str_currentFunc))
 	Next 'For int_currentRow = 1 To int_rowCount
 	
@@ -393,10 +492,32 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 Services.EndTransaction "StartRun"
 
 
- 
- 
 
- 
+Environment.Value("DivisionNumber")="902"
+Environment.Value("RegionCode")="BIDBFE"
+
+
+
+
+Function func_GetAccountDetails(strAccoutType,strRegionCode,strDivisionNumber)
+	Environment.Value("DivisionNumber") = func_SetToMaxFieldLength(Environment.Value("DivisionNumber"),5)
+	Select Case UCase(strAccoutType)
+		Case "RESIDENTIALCONTRACT"
+			strQuery = "SELECT ACCOMP, ACACCT, ACSITE, ACCTGR, ACMFCT, ACENDT FROM " & LCase(Environment.Value("RegionCode") & Trim(Environment.Value("DivisionNumber"))) & ".bipac WHERE ACMFCT <>'' and ACENDT = 0 and accomp ='" &  Environment.Value("DivisionNumber") & "' and ACSTCD <> ''and ACRATT <> ''"
+		Case "RESIDENTIALSUBSCRIPTION"
+			strQuery = "SELECT ACCOMP, ACACCT, ACSITE, ACCTGR, ACMFCT, ACENDT FROM " & LCase(Environment.Value("RegionCode") & Trim(Environment.Value("DivisionNumber"))) & ".bipac WHERE ACMFCT <>'' and ACENDT = 0 and accomp ='" &  Environment.Value("DivisionNumber") & "' and ACSTCD <> ''and ACRATT <> ''"
+		Case "COMMERCIAL"
+			strQuery = "SELECT ACCOMP, ACACCT, ACSITE, ACCTGR, ACMFCT, ACENDT FROM " & LCase(Environment.Value("RegionCode") & Trim(Environment.Value("DivisionNumber"))) & ".bipac WHERE ACMFCT <>'' and ACENDT = 0 and accomp ='" &  Environment.Value("DivisionNumber") & "' and ACSTCD <> ''and ACRATT <> ''"
+		Case "INDUSTRIAL"
+			strQuery = "SELECT ACCOMP, ACACCT, ACSITE, ACCTGR, ACMFCT, ACENDT FROM " & LCase(Environment.Value("RegionCode") & Trim(Environment.Value("DivisionNumber"))) & ".bipac WHERE ACMFCT <>'' and ACENDT = 0 and accomp ='" &  Environment.Value("DivisionNumber") & "' and ACSTCD <> ''and ACRATT <> ''"
+	End Select
+		Call func_GetUniqueRecordFromDBData("SYS01","darapch","Sachin8187",strQuery)
+		Environment.Value("AccountNumber")=Environment.Value("ACACCT")
+		Environment.Value("Site")=Environment.Value("ACSITE")
+		Environment.Value("ContainerGroup")=Environment.Value("ACCTGR")		
+End Function
+
+
  
 
 

@@ -4,29 +4,57 @@ str_ControlSheetPath = Environment.Value("RootPath") & "DataSheet\ControlSheet.x
 
 ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 
-Environment.Value("CurrentTestDataSheet") = ""
-Environment.Value("TestSuitName") = "SampleRegression"
-
-Call CreateTestSetReport(Environment.Value("RootPath") & "\Reports",Environment.Value("TestSuitName"))
 Set objExcelDB = CreateObject("ADODB.Connection")
 objExcelDB.Open "Driver={Microsoft Excel Driver (*.xls)};DBQ=" & Environment.Value("RootPath") & "DataSheet\ControlSheet.xls"
-Set objRecordSet = CreateObject("ADODB.RecordSet")
-objRecordSet.Open "select * from [" & Environment.Value("TestSuitName") & "$] where Execute='Y'",objExcelDB
-intRecords = 0
-
-While NOT objRecordSet.EOF	
-	ReDim Preserve arrTestCases(intRecords)
-	strCurrentTestCase = objRecordSet("TestCase")
-	arrTestCases(intRecords) = strCurrentTestCase	
-	intRecords = intRecords + 1
-	objRecordSet.MoveNext
+Set objRecordSetSuite = CreateObject("ADODB.RecordSet")
+objRecordSetSuite.Open "select * from [ExecutionFlow$] where Execute='Y'",objExcelDB
+intTSRecords = -1
+While NOT objRecordSetSuite.EOF	
+	ReDim Preserve arrTestSuits(intTSRecords+1)
+	strCurrentTestSuite = objRecordSetSuite("TestSuiteName")
+	arrTestSuits(intTSRecords+1) = strCurrentTestSuite	
+	intTSRecords = intTSRecords + 1
+	objRecordSetSuite.MoveNext
 Wend
 
+If intTSRecords<0 Then
+	ExitTest
+End If
 
-For intTestCase = 0 To UBound(arrTestCases)
-	Environment.Value("CurrentTestDataSheet") = arrTestCases(intTestCase)
-	LoadAndRunAction Environment.Value("RootPath") & "TestScript\Driver_Repaired","Action1",oneIteration
-	Call AddTestSetRow(Environment.Value("CurrentTestDataSheet"),"Pass",Environment.Value("HTMLResultFilePath"))
+For intTestSuite = 0 To UBound(arrTestSuits)
+	Environment.Value("TestSuitName") = arrTestSuits(intTestSuite)
+	Environment.Value("CurrentTestDataSheet") = ""
+	Call CreateTestSetReport(Environment.Value("RootPath") & "\Reports",Environment.Value("TestSuitName"))
+	Set objExcelDB = CreateObject("ADODB.Connection")
+	objExcelDB.Open "Driver={Microsoft Excel Driver (*.xls)};DBQ=" & Environment.Value("RootPath") & "DataSheet\ControlSheet.xls"
+	Set objRecordSet = CreateObject("ADODB.RecordSet")
+	objRecordSet.Open "select * from [" & Environment.Value("TestSuitName") & "$] where Execute='Y'",objExcelDB
+	intRecords = -1
+	
+	'To Get the Test Cases
+	While NOT objRecordSet.EOF	
+		ReDim Preserve arrTestCases(intRecords+1)
+		strCurrentTestCase = objRecordSet("TestCase")
+		arrTestCases(intRecords+1) = strCurrentTestCase	
+		intRecords = intRecords + 1
+		objRecordSet.MoveNext
+	Wend
+	'END : To Get the Test Cases
+	
+	If intRecords<0 Then
+		Exit For
+	End If
+	
+	'To Iterate the Test Cases
+	For intTestCase = 0 To UBound(arrTestCases)
+		Environment.Value("Result") = ""
+		Environment.Value("CurrentTestDataSheet") = arrTestCases(intTestCase)
+		LoadAndRunAction Environment.Value("RootPath") & "TestScript\Driver_Repaired","Action1",oneIteration
+		If InStr(UCase(Environment.Value("Result")),"FAIL")>0 Then
+			Call AddTestSetRow(Environment.Value("CurrentTestDataSheet"),"Fail",Environment.Value("HTMLResultFilePath"))
+		ElseIf InStr(UCase(Environment.Value("Result")),"PASS")>0 Then
+			Call AddTestSetRow(Environment.Value("CurrentTestDataSheet"),"Pass",Environment.Value("HTMLResultFilePath"))	
+		End If	
+	Next
+	'END : To Iterate the Test Cases
 Next
-
-

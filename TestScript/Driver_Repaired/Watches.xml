@@ -1,8 +1,7 @@
 ﻿<Properties>
-  <WatchEntry0 value="Environment.Value(&quot;ContainerGroup&quot;)" />
-  <WatchEntry1 value="blnFound" />
-  <WatchEntry2 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIDSC015_ContainerSelectionScreen&quot;).TeField(&quot;ContainerGroup&quot;).exist(0)" />
-  <WatchEntry3 value="Environment.Value(&quot;ContainerGroup&quot;)" />
-  <WatchEntry4 value="Environment.Value(&quot;is_batchrun&quot;)" />
-  <WatchEntry5 value="str_key" />
+  <WatchEntry0 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).TeField(&quot;text:=&quot; &amp; strSecondaryOption &amp; &quot;.*&quot;,&quot;start column:=4&quot;).Exist(5)" />
+  <WatchEntry1 value="strPrimaryOption" />
+  <WatchEntry2 value="str_key" />
+  <WatchEntry3 value="strValue" />
+  <WatchEntry4 value="strField" />
 </Properties>

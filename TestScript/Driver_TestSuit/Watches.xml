@@ -1,8 +1,5 @@
 ﻿<Properties>
-  <WatchEntry0 value="strTestCaseName" />
-  <WatchEntry1 value="strExecutionStatus" />
-  <WatchEntry2 value="strReportFilePath" />
-  <WatchEntry3 value="strHTMLPath_TestSet" />
-  <WatchEntry4 value="&quot;&lt;TR&gt;&quot; &amp; &quot;&lt;TD&gt;&quot; &amp; strTestCaseName &amp; &quot;&lt;/TD&gt;&quot;  &amp; &quot;&lt;TD&gt;&quot; &amp; strExecutionStatus &amp; &quot;&lt;/TD&gt;&quot; &amp; &quot;&lt;TD&gt;&quot; &amp; &quot;&lt;A HREF=&quot; &amp; strReportFilePath &amp; &quot;&gt;Report&lt;/A&gt;&lt;/TD&gt;&lt;/TR&gt;&quot;" />
-  <WatchEntry5 value="strField" />
+  <WatchEntry0 value="&quot;&lt;TR&gt;&quot; &amp; &quot;&lt;TD&gt;&quot; &amp; strTestCaseName &amp; &quot;&lt;/TD&gt;&quot;  &amp; &quot;&lt;TD&gt;&quot; &amp; strExecutionStatus &amp; &quot;&lt;/TD&gt;&quot; &amp; &quot;&lt;TD&gt;&quot; &amp; &quot;&lt;A HREF=&quot; &amp; strReportFilePath &amp; &quot;&gt;Report&lt;/A&gt;&lt;/TD&gt;&lt;/TR&gt;&quot;" />
+  <WatchEntry1 value="strField" />
+  <WatchEntry2 value="intRecords" />
 </Properties>

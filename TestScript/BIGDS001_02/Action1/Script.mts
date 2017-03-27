@@ -1,6 +1,10 @@
 ﻿'Environment.Value("Route") = "1201"
 TeWindow("InfoProWindow").TeScreen("BIGDS001").TeField("Route").SetTOProperty "text",Environment.Value("Route")
 
+
+
+
+
 If TeWindow("InfoProWindow").TeScreen("BIGDS001").TeField("Route").Exist(5) Then
 	Call func_reportStatus("Pass", "Found the Route " & Environment.Value("Route"), "Found the Route " & Environment.Value("Route"))
 	intFieldID  = TeWindow("InfoProWindow").TeScreen("BIGDS001").TeField("Route").GetROProperty("field id")-15	
