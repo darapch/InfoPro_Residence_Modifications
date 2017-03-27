@@ -61,4 +61,4 @@ End If
 
 
 
-	Environment.Value("is_batchrun") = false
+	Environment.Value("is_batchrun") = False

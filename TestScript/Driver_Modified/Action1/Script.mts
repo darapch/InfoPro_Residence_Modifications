@@ -462,5 +462,6 @@ Function CreateTestSetReport(strResultFileROOTPath,strResultFileNAME)
  End Function
 
 
-msgbox PathFinder.Locate("C:\Users\darapch\Desktop\InfoPro_Residence_Just Hold For a While\TestScript\BIGDS021_CustomerService")
+
+ @@ hightlight id_;_65690_;_script infofile_;_ZIP::ssf1.xml_;_
  
