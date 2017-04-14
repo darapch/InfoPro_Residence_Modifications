@@ -1,5 +1,6 @@
 ﻿
 'On Error Resume Next
+'Environment.Value("ContainerGroup")=1
 Environment.Value("ContainerGroup") = func_SetToMaxFieldLength(Environment.Value("ContainerGroup"),2)
 
 If VerifyScreenHeader("CONTAINER INFORMATION") Then

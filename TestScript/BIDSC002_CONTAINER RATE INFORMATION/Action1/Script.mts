@@ -4,11 +4,13 @@
 		If strChgCode<>"" Then
 			Call func_reportStatus("Pass","Verify Chg Code in Container Rate Information screen","The Chg Code '" & strChgCode & "' is available")
 		Else
-			Call func_reportStatus("Fail","Verify Chg Code in Container Rate Information screen","The Chg Code '" & strChgCode & "' is NOT available") 
+			Call func_reportStatus("Fail","Verify Chg Code in Container Rate Information screen","The Chg Code '" & strChgCode & "' is NOT available")
+			Call func_SetReturnCodeToZero()			
 		End If
 	Else
-		Call func_reportStatus("Fail","No Record Available","No Record Available") 	
+		Call func_reportStatus("Fail","No Record Available","No Record Available") 
+		Call func_SetReturnCodeToZero()		
 	End If
-Else
-	Environment.Value("returncode") = 0
+Else	
+	Call func_SetReturnCodeToZero()
 End If

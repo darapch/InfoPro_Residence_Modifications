@@ -17,11 +17,11 @@ Environment.Value("RootPath") = Split(Environment.Value("TestDir"),"TestScript")
 ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 	
 	If Environment.Value("is_batchrun")=false Then
-		Environment.Value("CurrentTestDataSheet") = "SmokeTest_Residential_Subscription"	
+		Environment.Value("CurrentTestDataSheet") = "SmokeTest_Commercial"	
 	End If
 	
 	arr_path = Split(Environment.Value("TestDir"), "\")
-	Environment.Value("returncode") = 1
+	
 	
 	str_excelFilePath = Environment.Value("RootPath") & "DataSheet\" & Environment.Value("CurrentTestDataSheet") & ".xls"
 	
@@ -47,7 +47,7 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 	Set obj_fso = Nothing
 	
 	int_rowCount = DataTable.GetSheet("Global").GetRowCount
-	
+	Environment.Value("returncode") = 1
 	For int_currentRow = 1 To int_rowCount
 		DataTable.GetSheet("Global").SetCurrentRow(int_currentRow)
 	
@@ -69,7 +69,7 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 				Wait(5)
 	
 			Case "LOGIN"
-			If Environment.Value("returncode") = 1 Then
+'			If Environment.Value("returncode") = 1 Then
 				Environment.Value("UName") = Trim(DataTable.Value("Parameter1", "Global"))
 				Environment.Value("Password") = Trim(DataTable.Value("Parameter2", "Global"))
 				
@@ -91,9 +91,9 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 				Call func_reportFailureScreenshot()
 				Call func_reportStatus("FAIL", "Login Screen", "Login Screen does not exist")
 				End If 'If TEWindow("InfoProWindow").TEScreen("Login").TEField("SignOn").Exist(10) Then
-			End If	
+'			End If	
 			Case "MENUSELECTION"
-				If Environment.Value("returncode") = 1 Then
+'				If Environment.Value("returncode") = 1 Then
 					str_MenuSelection = Trim(DataTable.Value("Parameter1", "Global"))
 					
 					'Added By Krishna
@@ -103,9 +103,9 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 					Call SaveScreenShot()
 					'***********************
 					Call func_SendKey("ENTER")
-				End If
+'				End If
 			Case "RETRIEVEDATA"
-			If Environment.Value("returncode") = 1 Then
+'			If Environment.Value("returncode") = 1 Then
 				str_query = Trim(DataTable.Value("Parameter1", "Global"))
 				str_dataSheet = Trim(DataTable.Value("Parameter2", "Global"))
 				Call func_retrieveData(str_query, str_dataSheet)
@@ -136,10 +136,10 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 					obj_fso.DeleteFile(Environment.Value("ErrorScreenshot"))
 				End If 'If (obj_fso.FileExists(Environment.Value("ErrorScreenshot"))) Then
 				Set obj_fso = Nothing
-			End If
+'			End If
 			Case "REGIONSELECTION"
 				'Added By Krishna
-				If Environment.Value("returncode") = 1 Then
+'				If Environment.Value("returncode") = 1 Then
 					If DataTable.Value("Parameter1", "Global")<>"" Then
 						Environment.Value("RegionCode") = Trim(DataTable.Value("Parameter1", "Global"))
 					Else
@@ -150,26 +150,26 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 						'Call func_RegionSelection()
 					End If
 					Call func_RegionSelection()
-				End If			
+'				End If			
 			Case "DIVISIONSELECTION"
 				'Added By Krishna
-				If Environment.Value("returncode") = 1 Then
+'				If Environment.Value("returncode") = 1 Then
 					If DataTable.Value("Parameter1", "Global")<>"" Then
 						Environment.Value("DivisionNumber") = Trim(UCase(DataTable.Value("Parameter1", "Global")))
 					End If
 					Call func_DivisionSelection(Environment.Value("DivisionNumber"))
-				End If				
+'				End If				
 	
 			Case "PRIMARYSELECTION"
-				If Environment.Value("returncode") = 1 Then
+'				If Environment.Value("returncode") = 1 Then
 					Environment.Value("PrimarySelection") = Trim(DataTable.Value("Parameter1", "Global"))
 					'Call func_PrimarySelection(Environment.Value("PrimarySelection"))
 					Call func_PrimarySelectionUpdated(Environment.Value("PrimarySelection"))
-				End If
+'				End If
 				
 	
 			Case "SECONDARYSELECTION"
-				If Environment.Value("returncode") = 1 Then
+'				If Environment.Value("returncode") = 1 Then
 					Environment.Value("SecondarySelection") = Trim(DataTable.Value("Parameter1", "Global"))
 					
 					If (Environment.Value("PrimarySelection") = "CustomerMaintenance") Then
@@ -185,175 +185,271 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 						'Call func_SecondrySelection(Environment.Value("SecondarySelection"))
 						Call func_SecondarySelectionUpdated(Environment.Value("SecondarySelection"))
 					Else
-						Msgbox("Secondry Selection not present in data sheet")
+						Call func_SetReturnCodeToZero()
+						'Msgbox("Secondry Selection not present in data sheet")
 					End If 'If (Environment.Value("PrimarySelection") = "CustomerMaintenance") Then
-				End If
+'				End If
 			Case "SENDKEY"
-				If Environment.Value("returncode") = 1 Then
+'				If Environment.Value("returncode") = 1 Then
 					str_sendKey = Trim(DataTable.Value("Parameter1", "Global"))
 					Call func_SendKey(str_sendKey)
-				End If
+'				End If
 			Case "BIDAA000"
-			
-				If Environment.Value("returncode") = 1 Then
-					On Error Resume Next
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDAA000", "Action1", oneIteration					
-					RunAction "Action1 [BIDAA000]", oneIteration					
-					If Err.number<>0 then
-						Call func_reportStatus("fail",UCASE(TRIM(str_currentFunc)) & " : " & Err.description,err.description)						
-					End If
-					On Error Goto 0
-				End If
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If					
+				LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDAA000", "Action1", oneIteration					
+				
 			Case "BIGAA001"
-				If Environment.Value("returncode") = 1 Then
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then
 					Environment.Value("BIGAA001Fields") = Trim(DataTable.Value("Parameter1", "Global"))
 					Environment.Value("BIGAA001PrintFeeFields") = Trim(DataTable.Value("Parameter2", "Global"))
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGAA001", "Action1", oneIteration
-					RunAction "Action1 [BIGAA001]", oneIteration
-				End If
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGAA001", "Action1", oneIteration					
+'				End If
 				
 			Case "CUGAACST01"
-				If Environment.Value("returncode") = 1 Then
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\CUGAACST01", "Action1", oneIteration
-					RunAction "Action1 [CUGAACST01]", oneIteration
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
 				End If
+'				If Environment.Value("returncode") = 1 Then
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\CUGAACST01", "Action1", oneIteration					
+'				End If
 			Case "CUGAACST01_2"
-				If Environment.Value("returncode") = 1 Then
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\CUGAACST01_2", "Action1", oneIteration
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\CUGAACST01_2", "Action1", oneIteration
 					RunAction "Action1 [CUGAACST01_2]", oneIteration
-				End If
+'				End If
 			Case "BIGAA014"
-				If Environment.Value("returncode") = 1 Then
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then
 					Environment.Value("BIGAA014Fields") = Trim(DataTable.Value("Parameter1", "Global"))
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGAA014", "Action1", oneIteration
-					RunAction "Action1 [BIGAA014]", oneIteration
-				End If
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGAA014", "Action1", oneIteration
+					
+'				End If
 			Case "BIGAA014_OVERRIDE"
-				If Environment.Value("returncode") = 1 Then
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGAA014_Override", "Action1", oneIteration
-					RunAction "Action1 [BIGAA014_Override]", oneIteration
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
 				End If
+'				If Environment.Value("returncode") = 1 Then
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGAA014_Override", "Action1", oneIteration
+					
+'				End If
 			Case "GENERATEDELIVERIES"
-				If Environment.Value("returncode") = 1 Then
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then
 					Call func_SendKey("F10")
-				End If
+'				End If
 			Case "RATEVALIDATION"
-				If Environment.Value("returncode") = 1 Then
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\RateValidation", "Action1", oneIteration
-					RunAction "Action1 [RateValidation]", oneIteration
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
 				End If
+'				If Environment.Value("returncode") = 1 Then
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\RateValidation", "Action1", oneIteration
+					'RunAction "Action1 [RateValidation]", oneIteration
+'				End If
 			Case "BIGAA014R"
-				If Environment.Value("returncode") = 1 Then
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGAA014R", "Action1", oneIteration
 					'RunAction "Action1 [BIGAA014R]", oneIteration
-				End If
+'				End If
 			Case "CREATEACCOUNT"
-				If Environment.Value("returncode") = 1 Then
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then
 					'Call func_SendKey("F10")
 					'Wait(10)
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\CREATEACCOUNT", "Action1", oneIteration
-					RunAction "Action1 [CREATEACCOUNT]", oneIteration
-				End If
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\CREATEACCOUNT", "Action1", oneIteration
+					'RunAction "Action1 [CREATEACCOUNT]", oneIteration
+'				End If
 			Case "BIRC01"
-				If Environment.Value("returncode") = 1 Then
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then
 					Environment.Value("StreetName") = Trim(DataTable.Value("Parameter1", "Global"))
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIRC01", "Action1", oneIteration
-					RunAction "Action1 [BIRC01]", oneIteration
-				End If
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIRC01", "Action1", oneIteration
+					'RunAction "Action1 [BIRC01]", oneIteration
+'				End If
 			Case "BIDDS035"
-				If Environment.Value("returncode") = 1 Then
-					Environment.Value("BIDDS035Fields") = Trim(DataTable.Value("Parameter1", "Global"))
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDDS035", "Action1", oneIteration
-					RunAction "Action1 [BIDDS035]", oneIteration
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
 				End If
+'				If Environment.Value("returncode") = 1 Then
+					Environment.Value("BIDDS035Fields") = Trim(DataTable.Value("Parameter1", "Global"))
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDDS035", "Action1", oneIteration
+					'RunAction "Action1 [BIDDS035]", oneIteration
+'				End If
 			Case "BIGDS024"
-				If Environment.Value("returncode") = 1 Then
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then
 					Environment.Value("BIGDS024Selection") = Trim(DataTable.Value("Parameter1", "Global"))
 					Environment.Value("BIGDS024Reason") = Trim(DataTable.Value("Parameter2", "Global"))
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS024", "Action1", oneIteration
-					RunAction "Action1 [BIGDS024]", oneIteration
-				End If
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS024", "Action1", oneIteration
+					'RunAction "Action1 [BIGDS024]", oneIteration
+'				End If
 			Case "BIGDS024PROCESSED"
-				If Environment.Value("returncode") = 1 Then
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS024Processed", "Action1", oneIteration
-					RunAction "Action1 [BIGDS024PROCESSED]", oneIteration
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
 				End If
+'				If Environment.Value("returncode") = 1 Then
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS024Processed", "Action1", oneIteration
+					'RunAction "Action1 [BIGDS024PROCESSED]", oneIteration
+'				End If
 			Case "BIGRS033"
-				If Environment.Value("returncode") = 1 Then
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then
 					Environment.Value("RoutingDate") = Trim(DataTable.Value("Parameter1", "Global"))
 					Environment.Value("Route") = Trim(DataTable.Value("Parameter2", "Global"))
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGRS033", "Action1", oneIteration
-					RunAction "Action1 [BIGRS033]", oneIteration
-				End If
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGRS033", "Action1", oneIteration
+					'RunAction "Action1 [BIGRS033]", oneIteration
+'				End If
 			Case "BIGDS000"
-				If Environment.Value("returncode") = 1 Then
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS000", "Action1", oneIteration
-					RunAction "Action1 [BIGDS000]", oneIteration
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
 				End If
+'				If Environment.Value("returncode") = 1 Then
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS000", "Action1", oneIteration
+					'RunAction "Action1 [BIGDS000]", oneIteration
+'				End If
 			Case "BIRC01_ROUTE"
-				If Environment.Value("returncode") = 1 Then
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIRC01_Route", "Action1", oneIteration
-					RunAction "Action1 [BIRC01_ROUTE]", oneIteration
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
 				End If
+'				If Environment.Value("returncode") = 1 Then
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIRC01_Route", "Action1", oneIteration
+					'RunAction "Action1 [BIRC01_ROUTE]", oneIteration
+'				End If
 			Case "BIR002"
-				If Environment.Value("returncode") = 1 Then
-					'LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIR002", "Action1", oneIteration
-					RunAction "Action1 [BIR002]", oneIteration
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
 				End If
+'				If Environment.Value("returncode") = 1 Then
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIR002", "Action1", oneIteration
+					'RunAction "Action1 [BIR002]", oneIteration
+'				End If
 			Case "BIDRS005"
-				If Environment.Value("returncode") = 1 Then
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then
 					Environment.Value("InputFields") = Trim(DataTable.Value("Parameter1", "Global"))	
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDRS005","Action1", oneIteration
-				End If
+'				End If
 			Case "BIGDS001_02" 'Added by Krishna
-				If Environment.Value("returncode") = 1 Then
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then
 					If DataTable.Value("Parameter1", "Global")<>"" Then
 						Environment.Value("Route") = Trim(DataTable.Value("Parameter1", "Global"))
 					End If
 					Environment.Value("NavigateBackTOSelection") = Trim(DataTable.Value("Parameter2", "Global"))					
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS001_02","Action1", oneIteration
-				End If
+'				End If
 			Case "STDJC20_EODJOBS" 'Added by Krishna
-				
-				If Environment.Value("returncode") = 1 Then
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then
 					Environment.Value("Job") = Trim(DataTable.Value("Parameter1", "Global"))
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\STDJC20_EOD Dispatch","Action1", oneIteration
-				End If	
+'				End If	
 			Case "BIGDS021_CUSTOMERSERVICE" 'Added by Krishna
-				
-				If Environment.Value("returncode") = 1 Then	
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
 					Environment.Value("AccountNumber") = Trim(DataTable.Value("Parameter1"))	
 					'msgbox str_path
 					'RunAction "Action1 [BIGDS021_CustomerService]", oneIteration
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS021_CustomerService","Action1",oneIteration
 					
 					'LoadAndRunAction "\\..\..\TestScript\BIGDS021_CustomerService","Action1",oneIteration
-				End If
+'				End If
 			Case "BIDSC001_ACCOUNT INFORMATION"	'Added by Krishna
-				If Environment.Value("returncode") = 1 Then	
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
 					Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
 					Environment.Value("City") = Trim(DataTable.Value("Parameter1"))
 					Environment.Value("State") = Trim(DataTable.Value("Parameter2"))
 					Environment.Value("ZIP") = Trim(DataTable.Value("Parameter3"))
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC001_ACCOUNT INFORMATION","Action1",oneIteration
 					'RunAction "Action1 [BIDSC001_ACCOUNT INFORMATION]", oneIteration
-				End If
+'				End If
 			Case "BIDSC015_CONTAINER SELECTION SCREEN"	'Added by Krishna
-				If Environment.Value("returncode") = 1 Then	
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction					
+				End If
+'				If Environment.Value("returncode") = 1 Then	
 				    If DataTable.Value("Parameter0")<>"" Then
 				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
 				    Else
 				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
 				    End If
 					
-					Environment.Value("SiteNumber") = Trim(DataTable.Value("Parameter1"))
-					Environment.Value("ContainerGroup") = Trim(DataTable.Value("Parameter2"))
-					Environment.Value("Status") = Trim(DataTable.Value("Parameter3"))
+					If Environment.Value("FetchAccDetailsFromDB")=False Then
+						Environment.Value("Site") = Trim(DataTable.Value("Parameter1"))
+						Environment.Value("ContainerGroup") = Trim(DataTable.Value("Parameter2"))
+					End If
+					
+					'Environment.Value("Status") = Trim(DataTable.Value("Parameter3"))
+					Environment.Value("Action") = Trim(DataTable.Value("Parameter3"))			
+
+
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC015_CONTAINER SELECTION SCREEN","Action1",oneIteration
 					
-				End If
+'				End If
 			Case "BIDSC015_RESIDENTIAL SERVICE INFORMATION"
-				If Environment.Value("returncode") = 1 Then	
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped")
+					Environment.Value("returncode") = 1
+					ExitAction					
+				End If
+'				If Environment.Value("returncode") = 1 Then	
 				    If DataTable.Value("Parameter0")<>"" Then
 				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
 				    Else
@@ -366,9 +462,13 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 					Environment.Value("SiteZIP") = Trim(DataTable.Value("Parameter4")) '"90044-2999"
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC015_RESIDENTIAL SERVICE INFORMATION","Action1",oneIteration
 					
-				End If
+'				End If
 			Case "BIGDS031_SERVICERECORDING"
-				If Environment.Value("returncode") = 1 Then	
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
 				    If DataTable.Value("Parameter0")<>"" Then
 				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
 				    Else
@@ -381,9 +481,14 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 					Environment.Value("Employee") = DataTable.Value("Parameter4")
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS031_ServiceRecording","Action1",oneIteration
 					
-				End If
+'				End If
 			Case "BIDSC000_MAINTAINCUSTOMERCONTROLS"
-				If Environment.Value("returncode") = 1 Then	
+				
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
 				    If DataTable.Value("Parameter0")<>"" Then
 				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
 				    Else
@@ -396,9 +501,13 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 					
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC000_MaintainCustomerControls","Action1",oneIteration
 					
-				End If
+'				End If
 			Case "BIGSC002_SITESELECTIONSCREEN"
-				If Environment.Value("returncode") = 1 Then	
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
 				    If DataTable.Value("Parameter0")<>"" Then
 				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
 				    Else
@@ -410,9 +519,13 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 				    End If												
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGSC002_SiteSelectionScreen","Action1",oneIteration
 					
-				End If
+'				End If
 			Case "BIDSC002_CONTAINER SELECTION SCREEN"
-				If Environment.Value("returncode") = 1 Then	
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
 				    If DataTable.Value("Parameter0")<>"" Then
 				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
 				    Else
@@ -426,9 +539,13 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 				    	Environment.Value("Action") = Trim(DataTable.Value("Parameter2"))				    
 				    End If				    
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC002_CONTAINER SELECTION SCREEN","Action1",oneIteration					
-				End If
+'				End If
 			Case "BIDSC002_CONTAINER RATE INFORMATION"
-				If Environment.Value("returncode") = 1 Then	
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
 				    If DataTable.Value("Parameter0")<>"" Then
 				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
 				    Else
@@ -436,9 +553,13 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 				    End If				    
 				    			    
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC002_CONTAINER RATE INFORMATION","Action1",oneIteration					
-				End If
+'				End If
 			Case "BIDSC002_SITE INFORMATION"
-				If Environment.Value("returncode") = 1 Then	
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
 				    If DataTable.Value("Parameter0")<>"" Then
 				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
 				    Else
@@ -448,12 +569,13 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 				    	Environment.Value("Site") = Trim(DataTable.Value("Parameter1"))				    
 				    End If			    
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC002_SITE INFORMATION","Action1",oneIteration					
-				End If
+'				End If
 			Case "BIDSC002_CONTAINER INFORMATION"
 				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
 					ExitAction
 				End If
-				If Environment.Value("returncode") = 1 Then	
+'				If Environment.Value("returncode") = 1 Then	
 				    If DataTable.Value("Parameter0")<>"" Then
 				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
 				    Else
@@ -463,28 +585,97 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 				    	Environment.Value("ContainerGroup") = Trim(DataTable.Value("Parameter1"))				    
 				    End If			    
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC002_CONTAINER INFORMATION","Action1",oneIteration					
-				End If
+'				End If
 			Case "BIDSC014_CONTAINER SELECTION SCREEN"
 				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
 					ExitAction
 				End If
-				If Environment.Value("returncode") = 1 Then	
+'				If Environment.Value("returncode") = 1 Then	
 				    If DataTable.Value("Parameter0")<>"" Then
 				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
 				    Else
 				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
 				    End If	
  					If DataTable.Value("Parameter1")<>"" Then
-				    	Environment.Value("Site") = Trim(DataTable.Value("Parameter2"))				    
+				    	Environment.Value("Site") = Trim(DataTable.Value("Parameter1"))				    
 				    End If				    
 				    If DataTable.Value("Parameter2")<>"" Then
-				    	Environment.Value("ContainerGroup") = Trim(DataTable.Value("Parameter2"))				    
+				    	Environment.Value("ContainerGroup") = Trim(DataTable.Value("Parameter2"))
+							   				    
 				    End If	
 					If DataTable.Value("Parameter3")<>"" Then
 				    	Environment.Value("Action") = Trim(DataTable.Value("Parameter3"))				    
 				    End If				    
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC014_CONTAINER SELECTION SCREEN","Action1",oneIteration					
+'				End If
+			Case "BIDSC014R_CONTAINER RATE INFORMATION"
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					Exit For
 				End If
+'				If Environment.Value("returncode") = 1 Then	
+				    If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
+				    Else
+				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
+				    End If	
+ 									    
+				    If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("ContainerGroup") = Trim(DataTable.Value("Parameter1"))				    
+				    End If	
+								    
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC014R_CONTAINER RATE INFORMATION","Action1",oneIteration					
+'				End If
+			Case "BIDSC014_RESIDENTIAL SERVICE INFORMATION"
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
+				    If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
+				    Else
+				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
+				    End If										    				   	
+								    
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC014_RESIDENTIAL SERVICE INFORMATION","Action1",oneIteration					
+'				End If
+			Case "BIDSC015_RESIDENTIAL RATES"
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
+				    If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
+				    Else
+				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
+				    End If
+
+					If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("ContainerGroup") = Trim(DataTable.Value("Parameter1"))				    
+				    End If
+								    
+					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC015_RESIDENTIAL RATES","Action1",oneIteration					
+'				End If
+			Case "GETACCOUNT_SITE_CONTAINERGROUP_DB"
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
+				    If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
+				    Else
+				    	Environment.Value("Purpose") = DataTable.Value("Parameter0")
+				    End If
+				    If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("AccountType") = Trim(DataTable.Value("Parameter1"))				    
+				    End If
+				    Call func_GetAccountDetails(Environment.Value("AccountType"),Environment.Value("RegionCode"),Environment.Value("DivisionNumber"))
+'				End If
+			
 		End Select 'Select Case UCASE(TRIM(str_currentFunc))
 	Next 'For int_currentRow = 1 To int_rowCount
 	
@@ -493,33 +684,53 @@ Services.EndTransaction "StartRun"
 
 
 
-Environment.Value("DivisionNumber")="902"
-Environment.Value("RegionCode")="BIDBFE"
 
 
 
 
-Function func_GetAccountDetails(strAccoutType,strRegionCode,strDivisionNumber)
-	Environment.Value("DivisionNumber") = func_SetToMaxFieldLength(Environment.Value("DivisionNumber"),5)
-	Select Case UCase(strAccoutType)
-		Case "RESIDENTIALCONTRACT"
-			strQuery = "SELECT ACCOMP, ACACCT, ACSITE, ACCTGR, ACMFCT, ACENDT FROM " & LCase(Environment.Value("RegionCode") & Trim(Environment.Value("DivisionNumber"))) & ".bipac WHERE ACMFCT <>'' and ACENDT = 0 and accomp ='" &  Environment.Value("DivisionNumber") & "' and ACSTCD <> ''and ACRATT <> ''"
-		Case "RESIDENTIALSUBSCRIPTION"
-			strQuery = "SELECT ACCOMP, ACACCT, ACSITE, ACCTGR, ACMFCT, ACENDT FROM " & LCase(Environment.Value("RegionCode") & Trim(Environment.Value("DivisionNumber"))) & ".bipac WHERE ACMFCT <>'' and ACENDT = 0 and accomp ='" &  Environment.Value("DivisionNumber") & "' and ACSTCD <> ''and ACRATT <> ''"
-		Case "COMMERCIAL"
-			strQuery = "SELECT ACCOMP, ACACCT, ACSITE, ACCTGR, ACMFCT, ACENDT FROM " & LCase(Environment.Value("RegionCode") & Trim(Environment.Value("DivisionNumber"))) & ".bipac WHERE ACMFCT <>'' and ACENDT = 0 and accomp ='" &  Environment.Value("DivisionNumber") & "' and ACSTCD <> ''and ACRATT <> ''"
-		Case "INDUSTRIAL"
-			strQuery = "SELECT ACCOMP, ACACCT, ACSITE, ACCTGR, ACMFCT, ACENDT FROM " & LCase(Environment.Value("RegionCode") & Trim(Environment.Value("DivisionNumber"))) & ".bipac WHERE ACMFCT <>'' and ACENDT = 0 and accomp ='" &  Environment.Value("DivisionNumber") & "' and ACSTCD <> ''and ACRATT <> ''"
-	End Select
-		Call func_GetUniqueRecordFromDBData("SYS01","darapch","Sachin8187",strQuery)
-		Environment.Value("AccountNumber")=Environment.Value("ACACCT")
-		Environment.Value("Site")=Environment.Value("ACSITE")
-		Environment.Value("ContainerGroup")=Environment.Value("ACCTGR")		
+
+
+
+Call func_GetUniqueRecordFromDBData("SYS01","darapch","Sachin8187","SELECT * FROM naeaipdn.P_CUPCST01 WHERE trim(INFOPRO_COMPANY)='847' and trim(INFOPRO_ACOUNT)='91'")
+
+Dim obj_conn
+Call func_ConnectToDB("SYS01","darapch","Sachin8187")
+Function func_ConnectToDB(strSystem,strUID,strPwd)
+	Set obj_conn = CreateObject("ADODB.Connection")	
+	str_connectionString = "Driver={iSeries Access ODBC Driver};System=" & strSystem & ";Uid=" & strUID & ";Pwd=" & strPwd		
+	obj_conn.open str_connectionString
+	If obj_conn.State=1 Then
+		Call func_reportStatus("Pass","Connect DB","Connected to DB Successfully")
+		'func_ConnectToDB = obj_conn
+	Else
+		Call func_reportStatus("Fail","Connect DB","NOT Connected to DB Successfully")
+		Call func_SetReturnCodeToZero()
+	End If
 End Function
 
-
- 
-
+strPubTable = "P_CUPCST01"
+strDivision = "847"
+strAccountNo = "     91"
+blnFoundRecord = VerifyRecord(obj_conn,"SELECT * FROM naeaipdn." & strPubTable & " WHERE trim(INFOPRO_COMPANY)='" & strDivision & "' and trim(INFOPRO_ACOUNT)='" & strAccountNo & "' and ")
+If blnFoundRecord Then
+	Call func_reportStatus("Pass","Verify Record for "
+End If
+Function VerifyRecord(obj_conn,strQuery)	
+	Set obj_resultSet = obj_conn.Execute(strQuery)
+	intRecords = 0	
+	Do While NOT obj_resultSet.EOF
+		intRecords = intRecords + 1	
+		obj_resultSet.MoveNext
+		Exit Do
+	Loop
+	Set obj_resultSet = Nothing
+	msgbox intRecords
+	If intRecords>0 Then			
+		VerifyRecord = True
+	Else		
+		VerifyRecord = False
+	End If			
+End Function
 
 
  

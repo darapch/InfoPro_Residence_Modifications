@@ -22,6 +22,8 @@ End If
 	Environment.Value("PrimarySelection") = ""
 	Environment.Value("SecondarySelection") = ""
 	Environment.Value("StreetName") = ""
+	Environment.Value("Result") = ""
+
 	
 	'BIGAA001
 	Environment.Value("BIGAA001Fields") = ""
@@ -59,6 +61,6 @@ End If
 	Environment.Value("Route") = ""
 
 
-
-
-	Environment.Value("is_batchrun") = False
+	Environment.Value("FetchAccDetailsFromDB")=False
+	Environment.Value("returncode") = 1
+	Environment.Value("is_batchrun") = True

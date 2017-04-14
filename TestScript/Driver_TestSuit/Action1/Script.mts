@@ -9,6 +9,8 @@ objExcelDB.Open "Driver={Microsoft Excel Driver (*.xls)};DBQ=" & Environment.Val
 Set objRecordSetSuite = CreateObject("ADODB.RecordSet")
 objRecordSetSuite.Open "select * from [ExecutionFlow$] where Execute='Y'",objExcelDB
 intTSRecords = -1
+
+
 While NOT objRecordSetSuite.EOF	
 	ReDim Preserve arrTestSuits(intTSRecords+1)
 	strCurrentTestSuite = objRecordSetSuite("TestSuiteName")
@@ -46,10 +48,12 @@ For intTestSuite = 0 To UBound(arrTestSuits)
 	End If
 	
 	'To Iterate the Test Cases
-	For intTestCase = 0 To UBound(arrTestCases)
+	For intTestCase = 0 To UBound(arrTestCases)		
 		Environment.Value("Result") = ""
 		Environment.Value("CurrentTestDataSheet") = arrTestCases(intTestCase)
 		LoadAndRunAction Environment.Value("RootPath") & "TestScript\Driver_Repaired","Action1",oneIteration
+		Environment.Value("FetchAccDetailsFromDB")=False
+		Environment.Value("returncode") = 1
 		If InStr(UCase(Environment.Value("Result")),"FAIL")>0 Then
 			Call AddTestSetRow(Environment.Value("CurrentTestDataSheet"),"Fail",Environment.Value("HTMLResultFilePath"))
 		ElseIf InStr(UCase(Environment.Value("Result")),"PASS")>0 Then

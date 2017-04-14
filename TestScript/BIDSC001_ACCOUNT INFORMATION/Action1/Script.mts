@@ -1,9 +1,4 @@
 ﻿
-
-
-
-
-
 Set objAccountNumberField = TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Protected:=True","attached text:=" & Environment.Value("AccountNumber") &  ".*protected.*")
 	
 If objAccountNumberField.Exist(5) Then
@@ -20,8 +15,6 @@ If objAccountNumberField.Exist(5) Then
 Else
 	Call func_reportStatus("Fail","Verify Account Information Screen","The Account Information screen is NOT displayed for the account " & Environment.Value("AccountNumber"))	
 End If
-
-
 
 'Environment.Value("AccountNumber") = "1127418"
 
