@@ -20,6 +20,7 @@ While NOT objRecordSetSuite.EOF
 Wend
 
 If intTSRecords<0 Then
+	Call func_reportStatus("Fail","No Test Suits are available","No Test Suits are available")
 	ExitTest
 End If
 
