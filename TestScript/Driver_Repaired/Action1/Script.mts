@@ -14,10 +14,10 @@ Dim arr_BIDDS035Fields
 Services.StartTransaction "StartRun"
 
 Environment.Value("RootPath") = Split(Environment.Value("TestDir"),"TestScript")(0)
-ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 	
 	If Environment.Value("is_batchrun")=false Then
 		Environment.Value("CurrentTestDataSheet") = "SmokeTest_Commercial"	
+		ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 	End If
 	
 	arr_path = Split(Environment.Value("TestDir"), "\")
