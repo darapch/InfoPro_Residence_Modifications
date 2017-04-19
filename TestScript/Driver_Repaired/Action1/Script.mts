@@ -691,46 +691,46 @@ Services.EndTransaction "StartRun"
 
 
 
-Call func_GetUniqueRecordFromDBData("SYS01","darapch","Sachin8187","SELECT * FROM naeaipdn.P_CUPCST01 WHERE trim(INFOPRO_COMPANY)='847' and trim(INFOPRO_ACOUNT)='91'")
+'Call func_GetUniqueRecordFromDBData("SYS01","darapch","Sachin8187","SELECT * FROM naeaipdn.P_CUPCST01 WHERE trim(INFOPRO_COMPANY)='847' and trim(INFOPRO_ACOUNT)='91'")
+'
+'Dim obj_conn
+'Call func_ConnectToDB("SYS01","darapch","Sachin8187")
+'Function func_ConnectToDB(strSystem,strUID,strPwd)
+'	Set obj_conn = CreateObject("ADODB.Connection")	
+'	str_connectionString = "Driver={iSeries Access ODBC Driver};System=" & strSystem & ";Uid=" & strUID & ";Pwd=" & strPwd		
+'	obj_conn.open str_connectionString
+'	If obj_conn.State=1 Then
+'		Call func_reportStatus("Pass","Connect DB","Connected to DB Successfully")
+'		'func_ConnectToDB = obj_conn
+'	Else
+'		Call func_reportStatus("Fail","Connect DB","NOT Connected to DB Successfully")
+'		Call func_SetReturnCodeToZero()
+'	End If
+'End Function
 
-Dim obj_conn
-Call func_ConnectToDB("SYS01","darapch","Sachin8187")
-Function func_ConnectToDB(strSystem,strUID,strPwd)
-	Set obj_conn = CreateObject("ADODB.Connection")	
-	str_connectionString = "Driver={iSeries Access ODBC Driver};System=" & strSystem & ";Uid=" & strUID & ";Pwd=" & strPwd		
-	obj_conn.open str_connectionString
-	If obj_conn.State=1 Then
-		Call func_reportStatus("Pass","Connect DB","Connected to DB Successfully")
-		'func_ConnectToDB = obj_conn
-	Else
-		Call func_reportStatus("Fail","Connect DB","NOT Connected to DB Successfully")
-		Call func_SetReturnCodeToZero()
-	End If
-End Function
-
-strPubTable = "P_CUPCST01"
-strDivision = "847"
-strAccountNo = "     91"
-blnFoundRecord = VerifyRecord(obj_conn,"SELECT * FROM naeaipdn." & strPubTable & " WHERE trim(INFOPRO_COMPANY)='" & strDivision & "' and trim(INFOPRO_ACOUNT)='" & strAccountNo & "' and ")
-If blnFoundRecord Then
-	Call func_reportStatus("Pass","Verify Record for "
-End If
-Function VerifyRecord(obj_conn,strQuery)	
-	Set obj_resultSet = obj_conn.Execute(strQuery)
-	intRecords = 0	
-	Do While NOT obj_resultSet.EOF
-		intRecords = intRecords + 1	
-		obj_resultSet.MoveNext
-		Exit Do
-	Loop
-	Set obj_resultSet = Nothing
-	msgbox intRecords
-	If intRecords>0 Then			
-		VerifyRecord = True
-	Else		
-		VerifyRecord = False
-	End If			
-End Function
+'strPubTable = "P_CUPCST01"
+'strDivision = "847"
+'strAccountNo = "     91"
+'blnFoundRecord = VerifyRecord(obj_conn,"SELECT * FROM naeaipdn." & strPubTable & " WHERE trim(INFOPRO_COMPANY)='" & strDivision & "' and trim(INFOPRO_ACOUNT)='" & strAccountNo & "' and ")
+'If blnFoundRecord Then
+'	Call func_reportStatus("Pass","Verify Record for "
+'End If
+'Function VerifyRecord(obj_conn,strQuery)	
+'	Set obj_resultSet = obj_conn.Execute(strQuery)
+'	intRecords = 0	
+'	Do While NOT obj_resultSet.EOF
+'		intRecords = intRecords + 1	
+'		obj_resultSet.MoveNext
+'		Exit Do
+'	Loop
+'	Set obj_resultSet = Nothing
+'	msgbox intRecords
+'	If intRecords>0 Then			
+'		VerifyRecord = True
+'	Else		
+'		VerifyRecord = False
+'	End If			
+'End Function
 
 
  
