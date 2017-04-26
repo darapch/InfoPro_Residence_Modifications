@@ -1,3 +1,5 @@
 ﻿<Properties>
-  <WatchEntry0 value="Int(Trim(TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIGDS002&quot;).TeField(&quot;ActualLifts&quot;).GetROProperty(&quot;text&quot;)))" />
+  <WatchEntry0 value="Environment.Value(&quot;Route&quot;)" />
+  <WatchEntry1 value="intStatusFieldID" />
+  <WatchEntry2 value="Environment.Value(&quot;NavigateBackTOSelection&quot;)" />
 </Properties>

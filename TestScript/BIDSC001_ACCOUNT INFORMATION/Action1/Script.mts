@@ -1,20 +1,27 @@
 ﻿
-Set objAccountNumberField = TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Protected:=True","attached text:=" & Environment.Value("AccountNumber") &  ".*protected.*")
+If VerifyScreenHeader("ACCOUNT INFORMATION") Then
 	
-If objAccountNumberField.Exist(5) Then
-	Call func_reportStatus("Pass","Verify Account Information Screen","The Account Information screen is displayed for the account " & Environment.Value("AccountNumber"))
-	Select Case UCase(Environment.Value("Purpose"))
-		Case "VALIDATE"
-			Call func_AccountAddressValidation()
-		Case "MOVE FORWARD"	
-			Call func_SendKey("ENTER")
-			If TeWindow("InfoProWindow").TeScreen("column count:=80").TeField("text:=CONTAINER SELECTION SCREEN").Exist(5) Then
-				Call func_reportStatus("Pass","Hit ENTER on the 'Account Information' screen","'CONTAINER SELECTION SCREEN' is displayed")
-			End If
-	End Select
+	If TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Protected:=True","attached text:=" & Environment.Value("AccountNumber") &  ".*protected.*").exist(4) Then
+		Call func_reportStatus("Pass","Verify Account Information Screen","The Account Information screen is displayed for the account " & Environment.Value("AccountNumber"))
+		Select Case UCase(Environment.Value("Purpose"))
+			Case "VALIDATE"
+				Call func_AccountAddressValidation()
+			Case "MOVE FORWARD"	
+				Call func_SendKey("ENTER")
+				'If TeWindow("InfoProWindow").TeScreen("column count:=80").TeField("text:=CONTAINER SELECTION SCREEN").Exist(5) Then
+				'	Call func_reportStatus("Pass","Hit ENTER on the 'Account Information' screen","'CONTAINER SELECTION SCREEN' is displayed")
+				'End If
+				If TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("RESUME").Exist(1) Then
+					Call func_EnterValueInTeField("BIDSC001_AccountInformation","RESUME","R")
+					Call func_SendKey("ENTER")
+				End If
+		End Select
+	End If
 Else
-	Call func_reportStatus("Fail","Verify Account Information Screen","The Account Information screen is NOT displayed for the account " & Environment.Value("AccountNumber"))	
+	Call func_SetReturnCodeToZero()
 End If
+
+
 
 'Environment.Value("AccountNumber") = "1127418"
 

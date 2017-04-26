@@ -14,10 +14,10 @@ Dim arr_BIDDS035Fields
 Services.StartTransaction "StartRun"
 
 Environment.Value("RootPath") = Split(Environment.Value("TestDir"),"TestScript")(0)
+ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 	
 	If Environment.Value("is_batchrun")=false Then
-		Environment.Value("CurrentTestDataSheet") = "SmokeTest_Commercial"	
-		ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
+		Environment.Value("CurrentTestDataSheet") = "Site Address Validation"			
 	End If
 	
 	arr_path = Split(Environment.Value("TestDir"), "\")
@@ -381,7 +381,7 @@ Environment.Value("RootPath") = Split(Environment.Value("TestDir"),"TestScript")
 					If DataTable.Value("Parameter1", "Global")<>"" Then
 						Environment.Value("Route") = Trim(DataTable.Value("Parameter1", "Global"))
 					End If
-					Environment.Value("NavigateBackTOSelection") = Trim(DataTable.Value("Parameter2", "Global"))					
+
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS001_02","Action1", oneIteration
 '				End If
 			Case "STDJC20_EODJOBS" 'Added by Krishna
@@ -435,6 +435,15 @@ Environment.Value("RootPath") = Split(Environment.Value("TestDir"),"TestScript")
 						Environment.Value("Site") = Trim(DataTable.Value("Parameter1"))
 						Environment.Value("ContainerGroup") = Trim(DataTable.Value("Parameter2"))
 					End If
+					
+					
+					If DataTable.Value("Parameter1")<>"" Then										
+						Environment.Value("Site") = Trim(DataTable.Value("Parameter1"))						
+					End If
+					
+					If DataTable.Value("Parameter2")<>"" Then										
+						Environment.Value("ContainerGroup") = Trim(DataTable.Value("Parameter2"))					
+					End If									
 					
 					'Environment.Value("Status") = Trim(DataTable.Value("Parameter3"))
 					Environment.Value("Action") = Trim(DataTable.Value("Parameter3"))			

@@ -50,7 +50,7 @@ If TeWindow("InfoProWindow").TeScreen("STDJC20").TeField("Job Submission Window"
 				Call func_sendkey("F5")
 				strStatus = Trim(TeWindow("InfoProWindow").TeScreen("Work With User Jobs").TeField("field id:=" & intStatusFieldID).GetROProperty("text"))
 				intWaitTime = 1
-				Do While strStatus<>"OUTQ" Or intWaitTime<=30
+				Do While strStatus<>"OUTQ" And intWaitTime<=30
 					Call func_sendkey("F5")
 					strStatus = Trim(TeWindow("InfoProWindow").TeScreen("Work With User Jobs").TeField("field id:=" & intStatusFieldID).GetROProperty("text"))
 					intWaitTime = intWaitTime+5

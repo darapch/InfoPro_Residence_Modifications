@@ -1,14 +1,16 @@
 ﻿
 
-On Error Resume Next
+If VerifyScreenHeader("RESIDENTIAL SERVICE INFORMATION")=False Then
+	Call func_SetReturnCodeToZero()
+End If
+'Environment.Value("ContainerGroup") = "1"
+'Environment.Value("Site") = "00001"
+'Environment.Value("Purpose") = "SITEADDRESSVALIDATION"
 
-'msgbox "In BIDSC015 Residential Service Information"
-
-msgbox "Return Code at Residential Service Information : " & Environment.Value("returncode")
 
 Environment.Value("ContainerGroup") = func_SetToMaxFieldLength(Environment.Value("ContainerGroup"),2)
 
-Environment.Value("Purpose") = "smoke"
+
 
 Select Case UCase(Environment.Value("Purpose"))
 	Case "SMOKE"
@@ -20,16 +22,6 @@ End Select
 
 Function VerifySiteAddressValidation()
 
-
-	If TeWindow("InfoProWindow").TeScreen("BIDSC015_ResidentialServiceInformation").TeField("ResidentialServiceInformation").Exist(5) Then
-		Call func_reportStatus("Pass", "Verify Residential Service Information Screen","Residential Service Information Screen is available")
-	Else
-		Call func_reportStatus("Fail", "Verify Residential Service Information Screen","Residential Service Information Screen is NOT available")
-		ExitTest
-	End If
-	
-	
-	
 	strOriginalSiteCity = TeWindow("InfoProWindow").TeScreen("BIDSC015_ResidentialServiceInformation").TeField("SiteCity").GetROProperty("text")
 	strOriginalSiteName = TeWindow("InfoProWindow").TeScreen("BIDSC015_ResidentialServiceInformation").TeField("SiteName").GetROProperty("text")
 	strOriginalSiteState = TeWindow("InfoProWindow").TeScreen("BIDSC015_ResidentialServiceInformation").TeField("SiteState").GetROProperty("text")
